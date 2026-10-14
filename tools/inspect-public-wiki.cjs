@@ -18,13 +18,13 @@ function candidateArrays(value,result=[],depth=0){
 }
 (async()=>{
  const browser=await chromium.launch({channel:'chrome',headless:true});
- const page=await browser.newPage({viewport:{width:1366,height:900}}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[],viewerEvidence=[];
+ const page=await browser.newPage({viewport:{width:1366,height:900},locale:'fr-FR'}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[],viewerEvidence=[];let activePackId=null;
  page.on('response',response=>{
   if(!(response.headers()['content-type']||'').includes('application/json'))return;
   tasks.push((async()=>{try{const value=await response.json(),url=new URL(response.url());
    if(url.pathname==='/api/config')for(const key of ['catalogSize','freePacks','recycle','dropWeights','pity','golden','godPackChance','godPackSlots'])configuration[key]=value[key];if(/\/api\/(packs|rates)$/.test(url.pathname))boosterResponses.push({sourceURL:url.origin+url.pathname,data:sanitize(value)});
-   const arrays=/\/api\/(characters|packs)$/.test(url.pathname)?candidateArrays(value):[];reports.push({url:url.origin+url.pathname,status:response.status(),rootKeys:Object.keys(value||{}).slice(0,30),candidateCounts:arrays.map(a=>a.length)});
-   for(const data of arrays)catalogues.push({sourceURL:url.origin+url.pathname,records:sanitize(data)});
+   const arrays=/\/api\/(characters|packs)(\/|$)/.test(url.pathname)?candidateArrays(value):[];reports.push({url:url.origin+url.pathname,status:response.status(),rootKeys:Object.keys(value||{}).slice(0,30),candidateCounts:arrays.map(a=>a.length)});
+   for(const data of arrays)catalogues.push({sourceURL:url.origin+url.pathname,packId:activePackId,records:sanitize(data)});
   }catch{}})());
  });
  let status,blocked=false,title='';
@@ -35,10 +35,11 @@ function candidateArrays(value,result=[],depth=0){
   blocked=/just a moment|attention required|verify you are human|vérifiez que vous êtes humain|checking your browser/i.test(title+' '+text)||status===403;
   if(!blocked){
    await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);
+   const closeWelcome=page.getByRole('button',{name:'×',exact:true}).last();if(await closeWelcome.count()&&await closeWelcome.isVisible()){try{await closeWelcome.click({timeout:2000})}catch{}}
    const wanted=['all','shonen','isekai','seinen','shojo','sport','mecha','waifu','husbando'];
    const packResponse=boosterResponses.find(b=>b.sourceURL.endsWith('/packs'));
    for(const packId of wanted){
-    const pack=packResponse?.data?.find(p=>p.id===packId);if(!pack)continue;
+    const pack=packResponse?.data?.find(p=>p.id===packId);if(!pack)continue;activePackId=packId;
     const escaped=pack.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
     const candidates=page.locator('button').filter({hasText:new RegExp(escaped+(packId==='shonen'?'(?! Mix)':''))});
     if(await candidates.count()){try{await candidates.first().click({timeout:4000});await page.waitForTimeout(800)}catch{}}
