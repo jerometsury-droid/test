@@ -22,6 +22,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/public-wiki/client-sources
+          git add data/public-wiki/special-pools.json
           git diff --cached --quiet || git commit -m 'Record public client booster source evidence'
           git push origin HEAD:research-booster-pools
