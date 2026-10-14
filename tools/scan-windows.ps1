@@ -25,7 +25,7 @@ try {
   $detections = @(Get-MpThreatDetection | Where-Object { $_.InitialDetectionTime -ge $started.AddSeconds(-5) -or ($_.Resources -join ' ') -like "*$target*" })
   $report.antivirus.detections = @($detections | Select-Object ThreatID,InitialDetectionTime,ActionSuccess,Resources)
   $report.antivirus.finalSignatures = (Get-MpComputerStatus).AntivirusSignatureVersion
-  if ($detections.Count -gt 0) { $report.antivirus.status='detected' } elseif ($scanExit -eq 0) { $report.antivirus.status='no_detection'; $clean=$true } else { throw "Scanner exit $scanExit: scan could not be confirmed clean; inspect defender-scan.log." }
+  if ($detections.Count -gt 0) { $report.antivirus.status='detected' } elseif ($scanExit -eq 0) { $report.antivirus.status='no_detection'; $clean=$true } else { throw "Scanner exit ${scanExit}: scan could not be confirmed clean; inspect defender-scan.log." }
 } catch { $report.antivirus.reason=$_.Exception.Message }
 $report | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $out 'scan.json') -Encoding utf8
 "clean=$($clean.ToString().ToLowerInvariant())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
@@ -34,3 +34,6 @@ Write-Host "::notice title=Packaged executable signature::$($appExe.signature); 
 Write-Host "::notice title=Antivirus verification::$($report.antivirus.status); $($report.antivirus.reason)"
 Write-Host "Antivirus result: $($report.antivirus.status). $($report.antivirus.reason)"
 if ($report.antivirus.status -eq 'detected') { Write-Host "::error title=Defender detection::Threat IDs $($detections.ThreatID -join ', '); resources $($detections.Resources -join '; ')"; throw 'Antivirus detection: Windows executable upload blocked.' }
+
+# An unavailable scanner is reported, never mistaken for a clean scan.
+exit 0
