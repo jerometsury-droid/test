@@ -1,0 +1,96 @@
+{
+  "source": "https://kyara.games/wiki",
+  "title": "Kyara — Wiki",
+  "status": 200,
+  "blocked": false,
+  "inspectedAnonymously": true,
+  "captchaSolved": false,
+  "responses": [
+    {
+      "url": "https://kyara.games/api/config",
+      "status": 200,
+      "rootKeys": [
+        "catalogSize",
+        "freePacks",
+        "recycle",
+        "dropWeights",
+        "pity",
+        "golden",
+        "godPackChance",
+        "godPackSlots",
+        "membershipOpen",
+        "guestBoosterLimit",
+        "resets",
+        "referral"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/auth/providers",
+      "status": 200,
+      "rootKeys": [
+        "discord",
+        "turnstile"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/characters",
+      "status": 200,
+      "rootKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "candidateCounts": [
+        6736
+      ]
+    }
+  ],
+  "catalogues": [
+    {
+      "sourceURL": "https://kyara.games/api/characters",
+      "count": 6736,
+      "keys": [
+        "id",
+        "name",
+        "native",
+        "image",
+        "favourites",
+        "rank",
+        "rarity",
+        "num",
+        "series",
+        "pow",
+        "aura"
+      ]
+    }
+  ]
+}
