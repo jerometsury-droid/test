@@ -1,6 +1,6 @@
 const path=require('node:path');
 const POLICY="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'";
-const TYPES={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.json':'application/json'};
+const TYPES={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.avif':'image/avif','.svg':'image/svg+xml','.webp':'image/webp','.json':'application/json','.ttf':'font/ttf','.woff2':'font/woff2'};
 function isGameURL(url){try{const u=new URL(url);return u.protocol==='kyara:'&&u.hostname==='game'&&!u.username&&!u.password&&!u.port}catch{return false}}
 async function staticResponse(request,root,readFile){
  if(!isGameURL(request.url)||request.method!=='GET')return new Response('Forbidden',{status:403});

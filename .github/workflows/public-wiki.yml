@@ -1,7 +1,5 @@
 name: Inspect supplied public Wiki
 on:
-  push:
-    branches: [public-wiki-source]
   workflow_dispatch:
 concurrency:
   group: public-wiki-source

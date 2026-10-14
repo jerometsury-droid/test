@@ -1,6 +1,6 @@
 {
   "name": "kyara-solo",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Kyara Solo — prototype local hors ligne",
   "private": true,
   "main": "desktop/main.cjs",
@@ -9,7 +9,8 @@
     "test": "node --test tests/*.test.cjs",
     "package:windows": "node tools/package-windows.cjs",
     "test:collection-browser": "node tests/collection-browser.cjs",
-    "test:desktop-browser": "node tests/desktop-browser.cjs"
+    "test:desktop-browser": "node tests/desktop-browser.cjs",
+    "test:features-browser": "node tests/new-features-browser.cjs"
   },
   "devDependencies": {
     "@electron/packager": "20.3.0",
