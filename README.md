@@ -1,12 +1,22 @@
-# Kyara Solo 0.4.1
+# Kyara Solo 0.5.0
 
 Jeu personnel hors ligne, inspiré de Kyara. Projet indépendant, sans affiliation officielle.
 
 ## Windows
 
-Téléchargez l’artefact `KyaraSolo-Windows-v0.4.1` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
+Téléchargez l’artefact `KyaraSolo-Windows-v0.5.0` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
 
-## Cette version
+## Nouveautés inspirées de la vidéo du 14 octobre
+
+- Aperçu de chaque booster, classé par rareté, avec recherche, filtre des personnages manquants et chargement progressif.
+- Missions solo quotidiennes et hebdomadaires avec récompenses réclamables, succès et série de connexion sur sept jours (20/30/40/50/60/80/100 chakra ; un booster doré gratuit au septième jour).
+- Les trois missions du jour donnent un booster bonus ; les trois missions hebdomadaires donnent vingt boosters bonus. Les crédits restent disponibles lorsque les charges sont pleines. Une récompense déjà réclamée ne peut pas être réclamée à nouveau après rechargement.
+- Tableau de collection avec taux de complétion, doublons et répartition des raretés ; grille plus compacte.
+- Inclinaison et reflets au survol dans les fiches de cartes, véritable verso individuel avec nom, anime et statistiques. Le mode allégé désactive les mouvements.
+
+Ces objectifs sont adaptés au solo : la mission de vente est remplacée par cinq ouvertures, et le bonus hebdomadaire est constitué de vingt boosters standard, pas du coffret du site. Le calendrier suit les dates de l’ordinateur ; aucune mission n’est récupérée depuis un compte Kyara. Les missions commencent avec cette version, tandis que les succès reconnaissent la collection et les ouvertures existantes. Le marché entre joueurs, les concours et le parrainage restent hors du mode solo.
+
+## Catalogue et règles
 
 - **6 736 cartes et 6 736 portraits locaux**, récupérés depuis les références AniList du catalogue public de Kyara ; aucune illustration IA. Noms, anime, raretés et statistiques proviennent du catalogue public, sans rapprochements OCR inventés.
 - Portraits WebP optimisés, environ 103 Mo pour le catalogue complet. Chargement progressif et pagination à 48 entrées pour les anciens PC.

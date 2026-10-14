@@ -10,11 +10,13 @@ const {_electron}=require('playwright'),path=require('node:path'),assert=require
   assert.equal(new URL(page.url()).protocol,'kyara:');
   assert.equal(await page.evaluate(()=>CHARACTERS.length),6736);assert.equal(await page.locator('.boosters .foil-pack').count(),9);
   await page.keyboard.press('F7');await page.waitForSelector('#solo-tools[open]');await page.fill('#chakra-amount','123456');await page.click('#chakra-form button');await page.keyboard.press('Escape');await page.waitForSelector('#solo-tools',{state:'detached'});
+  await page.click('#preview-pool');await page.waitForSelector('#booster-preview[open]');assert.equal(await page.locator('.pool-group').count(),6);await page.keyboard.press('Escape');
+  await page.click('[data-nav="Missions"]');const balance=await page.evaluate(()=>save.chakra);await page.click('#claim-login');assert.equal(await page.evaluate(()=>save.chakra),balance+20);assert.equal(await page.locator('#claim-login').isDisabled(),true);await page.click('[data-nav="Boosters"]');
   await page.evaluate(()=>{Math.random=()=>.5});
   await page.click('#to-open');await page.click('[data-quantity="10"]');await page.click('#open');await page.waitForSelector('#next');await page.click('#all');
   assert.equal(await page.locator('.summary-slot').count(),50);
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('kyara-solo-save-v1')));
-  assert.equal(saved.charges,5);assert.equal(saved.openings,10);assert.equal(await page.locator('[data-summary-pack]').count(),0);assert.equal(Object.values(saved.inventory).reduce((a,b)=>a+b,0),50);assert.equal(saved.pendingOpening,null);assert.equal(await page.locator('.best-label').count(),0);assert.ok(await page.evaluate(()=>results.every(c=>BOOSTERS[chosen].poolIds.includes(c.id))));
+  assert.equal(saved.progression.day.counters.opened,10);assert.equal(saved.charges,5);assert.equal(saved.openings,10);assert.equal(await page.locator('[data-summary-pack]').count(),0);assert.equal(Object.values(saved.inventory).reduce((a,b)=>a+b,0),50);assert.equal(saved.pendingOpening,null);assert.equal(await page.locator('.best-label').count(),0);assert.ok(await page.evaluate(()=>results.every(c=>BOOSTERS[chosen].poolIds.includes(c.id))));
   await page.click('#collection');await page.locator('[data-card]').first().click();await page.waitForSelector('dialog[open]');
   await page.waitForFunction(()=>document.querySelector('dialog img').complete&&document.querySelector('dialog img').naturalWidth>0);
   await page.keyboard.press('Escape');await page.waitForSelector('dialog',{state:'detached'});

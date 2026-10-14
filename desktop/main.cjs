@@ -11,7 +11,7 @@ app.whenReady().then(()=>{
  protocol.handle('kyara',request=>staticResponse(request,app.getAppPath(),fs.readFile));
  session.defaultSession.setPermissionRequestHandler((_webContents,_permission,callback)=>callback(false));
  session.defaultSession.setPermissionCheckHandler(()=>false);
- window=new BrowserWindow({width:1280,height:850,minWidth:390,minHeight:500,backgroundColor:'#0d0c12',title:'Kyara Solo',autoHideMenuBar:true,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true}});
+ window=new BrowserWindow({width:1280,height:850,minWidth:390,minHeight:500,backgroundColor:'#0d0c12',title:'Kyara Solo',icon:path.join(__dirname,'..','assets','app-icon.png'),autoHideMenuBar:true,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true}});
  window.webContents.setWindowOpenHandler(()=>({action:'deny'}));
  window.webContents.on('will-navigate',(event,url)=>{if(!isGameURL(url))event.preventDefault()});
  window.on('closed',()=>{window=null});

@@ -9,6 +9,8 @@
   const integer=(v)=>Number.isSafeInteger(v)&&v>=0;
   if(!s||typeof s!=='object'||!s.inventory||Array.isArray(s.inventory)||typeof s.inventory!=='object'||!integer(s.chakra))throw Error('Sauvegarde invalide');
   for(const key of ['charges','openings','pity','standard'])if(s[key]!==undefined&&!integer(s[key]))throw Error('Compteur invalide : '+key);
+  for(const key of ['bonusPacks','bonusGolden'])if(s[key]!==undefined&&!integer(s[key]))throw Error('Bonus invalide');
+  if(s.progression!==undefined){if(!root.KyaraProgression)throw Error('Progression indisponible');root.KyaraProgression.validate(s.progression)}
   if(s.charges>15)throw Error('Charges invalides');
   if(!Object.values(s.inventory).every(integer))throw Error('Inventaire invalide');
   if(s.art!==undefined&&(!s.art||Array.isArray(s.art)||typeof s.art!=='object'||!Object.values(s.art).every(v=>typeof v==='string'&&/^data:image\/(png|jpeg|jpg|webp|gif|avif|bmp|svg\+xml|x-icon);base64,[A-Za-z0-9+/=\s]+$/.test(v))))throw Error('Illustration invalide');
@@ -35,9 +37,9 @@
   if(input.pendingOpening)throw Error('Termine le booster déjà ouvert.');
   if(!boosters[booster])throw Error('Booster inconnu');
   const price=boosters[booster][2];
-  if(input.charges<=0&&input.chakra<price)throw Error('Chakra insuffisant. Recycle des doublons ou attends une charge gratuite.');
+  if(input.charges+(input.bonusPacks||0)<=0&&input.chakra<price)throw Error('Chakra insuffisant. Recycle des doublons ou attends une charge gratuite.');
   const pools=rarityPools(catalog,boosters[booster]);
-  const divine=random()<1/RULES.divine,golden=(input.standard+1)%RULES.golden===0,pity=input.pity+1>=RULES.pity;
+  const divine=random()<1/RULES.divine,periodicGolden=(input.standard+1)%RULES.golden===0,bonusGolden=!periodicGolden&&(input.bonusGolden||0)>0,golden=periodicGolden||bonusGolden,pity=input.pity+1>=RULES.pity;
   const minimums=divine?[3,3,3,3,5]:golden?RULES.goldenMinimums:RULES.minimums;
   const rarities=minimums.map(min=>weighted(min,random));
   if(divine||pity)rarities[4]=5;
@@ -46,7 +48,8 @@
   const seen=new Set(Object.keys(save.inventory).filter(id=>save.inventory[id]>0));
   save.lastNew=cards.map(c=>{const fresh=!seen.has(c.id);seen.add(c.id);return fresh});
   cards.forEach(c=>save.inventory[c.id]=(save.inventory[c.id]||0)+1);
-  if(save.charges>0)save.charges--;else save.chakra-=price;
+  if(save.bonusPacks>0)save.bonusPacks--;else if(save.charges>0)save.charges--;else save.chakra-=price;
+  if(bonusGolden&&!divine)save.bonusGolden--;
   save.openings++;save.standard++;save.pity=rarities.includes(5)?0:save.pity+1;
   const record={id:'solo-'+now+'-'+save.openings,at:now,booster:boosters[booster][0],boosterIndex:booster,ids:cards.map(c=>c.id),divine,golden};
   save.history.unshift(record);save.history=save.history.slice(0,100);
@@ -58,7 +61,7 @@
   if(![1,5,10].includes(count))throw Error('Quantité invalide');
   if(input.pendingOpening)throw Error('Termine le booster déjà ouvert.');
   if(!boosters[booster])throw Error('Booster inconnu');
-  const paid=Math.max(0,count-input.charges),cost=paid*boosters[booster][2];
+  const paid=Math.max(0,count-input.charges-(input.bonusPacks||0)),cost=paid*boosters[booster][2];
   if(!Number.isSafeInteger(cost)||input.chakra<cost)throw Error('Chakra insuffisant pour ces '+count+' boosters.');
   let state=input;const packs=[],cards=[],flags=[];
   for(let i=0;i<count;i++){
