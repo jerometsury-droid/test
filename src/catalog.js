@@ -1,0 +1,9 @@
+const R=['Commune','Peu commune','Rare','Épique','Légendaire','Mythique'];
+const W=[62,25,11.4,1.4,.15,.025], REC=[1,1,3,10,40,150];
+const CHARACTERS=[
+ ['Satoru Gojou','JUJUTSU KAISEN',5,1,99,86],['Levi','Attack on Titan',5,2,99,85],['Luffy Monkey','ONE PIECE',5,3,99,85],['Killua Zoldyck','Hunter x Hunter',5,4,99,85],['Eren Yeager','Attack on Titan',5,5,99,85],['Zoro Roronoa','ONE PIECE',5,6,99,85],['L Lawliet','Death Note',5,9,99,85],['Ken Kaneki','Tokyo Ghoul',5,10,99,85],['Arataka Reigen','Mob Psycho 100',5,12,99,85],['Guts','Berserk',5,13,99,85],['Kurisu Makise','Steins;Gate',5,16,99,85],['Makima','Chainsaw Man',5,18,99,85],['Itachi Uchiha','Naruto',5,19,99,85],['Rintarou Okabe','Steins;Gate',5,20,99,85],['Yuuji Itadori','JUJUTSU KAISEN',5,22,99,85],['Denji','Chainsaw Man',5,23,99,85],['Kurapika','Hunter x Hunter',5,24,99,85],
+ ['Akame','Akame ga Kill!',4,204,97,72],['Illumi Zoldyck','Hunter x Hunter',3,675,93,63],['Yukio Tanaka','BECK',2,1685,84,55],['Seri Kikyou','',2,2566,77,51],['Saya Takagi','',2,2154,80,53],['Hoshino Takanashi','Blue Archive The Animation',1,3369,70,48],['Haato Akai','',1,4131,63,46],['ACDC','JoJo’s Bizarre Adventure',0,5053,55,40],['Raine','',0,6293,44,31],['Loly Aivirrne','',0,6085,46,33],['Afro Samurai','Afro Samurai',2,2361,77,51],['Becky Blackbell','SPY × FAMILY',2,2364,77,51],['Vamola','DAN DA DAN',2,2365,77,51],['Zombieman','One-Punch Man',2,2369,77,51],['Tenshu','Fairy Tail',0,6709,44,31],['Yuika Suse','Witch on the Holy Night',0,6710,44,31]
+].map(([name,work,rarity,rank,pow,aura])=>({id:String(rank),name,work,rarity,rank,pow,aura}));
+const BOOSTERS=[['Shōnen Mix','混',150],['Shōnen','少',175],['Isekai','異',175],['Seinen','青',175],['Shōjo','花',175],['Sport','球',175],['Mecha','機',175],['Waifus','姫',150],['Husbandos','侍',150]];
+
+const RARITY_CODES=['C','U','R','E','L','M'];

@@ -1,0 +1,112 @@
+const KEY='kyara-solo-save-v1';const defaults=()=>({chakra:750,charges:15,inventory:{},openings:0,pity:0,standard:0,history:[],art:{},freeAt:Date.now()});
+let save;try{save={...defaults(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{save=defaults()}
+let page='Boosters',chosen=0,phase='ready',results=[],revealIndex=0,visible=false,search='',filter='Toutes';
+let collectionTab='cards',collectionQuery='',collectionRarity='Toutes',collectionWork='',collectionSort='rank',duplicatesOnly=false,unlockedOnly=false;
+const app=document.getElementById('app');const store=()=>localStorage.setItem(KEY,JSON.stringify(save));
+function recharge(){const step=30*60*1000;const now=Date.now();if(save.charges>=15){save.freeAt=now;return}const n=Math.floor((now-save.freeAt)/step);if(n>0){save.charges=Math.min(15,save.charges+n);save.freeAt+=n*step;store()}}
+let openingTimer;
+function openPack(){
+ if(phase!=='ready')return;
+ recharge();
+ try{
+  const transaction=KyaraEngine.open(save,chosen,CHARACTERS,BOOSTERS);
+  persist(transaction.save);
+  save=transaction.save;results=transaction.cards;
+  phase='opening';revealIndex=0;page='Ouverture';render();
+  clearTimeout(openingTimer);
+  openingTimer=setTimeout(()=>{if(phase==='opening'&&page==='Ouverture'){phase='hidden';render()}},save.preferences?.lowMotion?50:700);
+ }catch(error){alert(error.message)}
+}
+function persist(candidate){localStorage.setItem(KEY,JSON.stringify(candidate))}
+function resumeOpening(){
+ const pending=save.pendingOpening;
+ if(!pending)return;
+ const cards=pending.ids.map(id=>CHARACTERS.find(c=>c.id===id));
+ if(cards.length!==5||cards.some(c=>!c))return;
+ chosen=pending.booster;results=cards;revealIndex=0;phase='hidden';page='Ouverture';
+}
+function completeOpening(){
+ if(!save.pendingOpening)return;
+ const candidate={...save,pendingOpening:null};
+ try{persist(candidate);save=candidate}catch(error){alert('Impossible de terminer la sauvegarde : '+error.message)}
+}
+function next(){if(phase==='hidden'){phase='revealed';visible=true}else if(phase==='revealed'){if(revealIndex===4)phase='summary';else{revealIndex++;phase='hidden';visible=false}}if(phase==='summary')completeOpening();render()}
+function artwork(c){return save.art[c.id]||KyaraArtwork.portraits[c.id]?.path||KyaraArtwork.fallback}
+function portrait(c){
+ const integrated=save.art[c.id]?null:KyaraArtwork.portraits[c.id],crop=integrated?.crop;
+ const sprite=crop?` style="position:absolute;width:${crop.columns*100}%;height:${crop.rows*100}%;left:${-crop.x*100}%;top:${-crop.y*100}%;max-width:none;object-fit:fill"`:'';
+ return `<img src="${escapeHtml(artwork(c))}" data-portrait="${escapeHtml(c.id)}"${sprite} alt="${escapeHtml(c.name)} — ${escapeHtml(c.work||'œuvre à confirmer')}" title="${escapeHtml(integrated?.sourceNote||'Illustration personnelle ou portrait à venir')}" decoding="async" loading="${['Ouverture','Boosters'].includes(page)?'eager':'lazy'}">`;
+}
+function card(c,mini=false){return `<div class="card r${c.rarity} ${mini?'mini':''}"><div class="cardhead"><span title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</span><b>${RARITY_CODES[c.rarity]}</b></div><div class="portrait">${portrait(c)}<small>#${String(c.rank).padStart(4,'0')}/6736</small></div><div class="work" title="${escapeHtml(c.work||'Œuvre à confirmer')}">${escapeHtml(c.work||'Œuvre à confirmer')}</div><div class="stats">POW ${c.pow} <span>AURA ${c.aura}</span></div></div>`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
+function header(){return `<header><div class="logo"><span>キ</span> KYARA <em>SOLO</em></div><nav>${['Boosters','Collection','Wiki','Paramètres'].map(p=>`<button class="${page===p?'active':''}" data-nav="${p}">${p}</button>`).join('')}</nav><div class="resources"><span>◆ ${save.chakra}</span><span>🎴 ${save.charges}/15</span></div></header>`}
+function home(){return `<section class="hero"><div><small>COLLECTION DE PERSONNAGES • HORS LIGNE</small><h1>TON UNIVERS.<br><strong>TES CARTES.</strong></h1><p>Ouvre des boosters, collectionne tes personnages et personnalise leurs illustrations.</p><div class="pill">Prototype local • catalogue partiel vérifié</div></div><div class="hero-cards">${[CHARACTERS.find(c=>c.id==='1'),CHARACTERS.find(c=>c.id==='18'),CHARACTERS.find(c=>c.id==='16')].map(c=>card(c,true)).join('')}</div></section><section class="layout"><div><div class="section-title"><h2>Choisir un booster</h2><span>9 catégories</span></div><div class="boosters">${BOOSTERS.map(([name,sym,price],i)=>`<button class="booster ${chosen===i?'selected':''}" data-booster="${i}"><b>${sym}</b><strong>${name}</strong><small>5 cartes · ${price} ◆</small></button>`).join('')}</div></div><aside class="detail"><div class="pack">${BOOSTERS[chosen][1]}<span>KYARA</span></div><h2>${BOOSTERS[chosen][0]}</h2><p>5 cartes par booster</p><div class="detail-line">Rare ou mieux garantie <b>✓</b></div><div class="detail-line">Mythique garantie dans <b>${250-save.pity}</b></div><div class="detail-line">Prochain doré dans <b>${10-save.standard%10}</b></div><div class="detail-line">Charges gratuites <b>${save.charges}/15</b></div><button class="primary" id="to-open">Préparer l'ouverture →</button><p class="hint">Taux reconstitués à partir du rapport ; pools de personnages encore incomplets.</p></aside></section>`}
+function packMarkup(extra=''){
+ return `<div class="pack large ${extra}"><div class="pack-cap">KYARA</div><div class="pack-body"><small>COLLECTION SOLO</small><b>${BOOSTERS[chosen][1]}</b><strong>${BOOSTERS[chosen][0]}</strong><span>5 CARTES</span></div></div>`;
+}
+function backCard(){return `<div class="card backcard"><i class="corner tl">◆</i><i class="corner tr">◆</i><i class="corner bl">◆</i><i class="corner br">◆</i><div>${BOOSTERS[chosen][1]}</div><strong>KYARA</strong><small>COLLECTION SOLO</small></div>`}
+function opening(){
+ const title=BOOSTERS[chosen][0],symbol=BOOSTERS[chosen][1];
+ const backdrop=`<div class="scene-symbol" aria-hidden="true">${symbol}</div>`;
+ if(phase==='ready')return `<div class="scene">${backdrop}${packMarkup()}<p>Clique sur Ouvrir pour découvrir tes cartes.</p><button class="primary" id="open">Ouvrir · ${save.charges>0?'GRATUIT':BOOSTERS[chosen][2]+' ◆'}</button><small>Rare ou mieux garantie · Mythique dans ${250-save.pity} boosters</small></div>`;
+ if(phase==='opening')return `<div class="scene">${backdrop}<div class="light"></div>${packMarkup('tearing')}<h2 role="status">Ouverture du booster…</h2></div>`;
+ if(phase==='summary'){
+  const best=results.reduce((best,c,i)=>c.rarity>results[best].rarity?i:best,0);
+  const rest=results.map((c,i)=>({c,i})).filter(x=>x.i!==best);rest.splice(2,0,{c:results[best],i:best});
+  return `<div class="scene">${backdrop}<h1>${title} — Résultat</h1><div class="summary">${rest.map(({c,i})=>`<div class="summary-slot ${i===best?'best':''}">${i===best?'<span class="best-label">Meilleure carte</span>':''}${card(c,true)}<small>${save.lastNew[i]?'Nouveau':'Doublon'}</small></div>`).join('')}</div><p>Les 5 cartes ont été ajoutées à ta collection.</p><div class="actions"><button class="primary" id="again">Ouvrir un autre</button><button id="collection">Voir la collection</button><button id="back">Changer de booster</button></div></div>`;
+ }
+ const c=results[revealIndex],revealed=phase==='revealed';
+ return `<div class="scene">${backdrop}<div class="scene-title" role="status">${revealIndex+1} / 5</div><div class="card-stack halo-${c.rarity}">${Array.from({length:4-revealIndex},(_,i)=>`<div class="stack-sheet" style="--layer:${4-revealIndex-i}" aria-hidden="true"></div>`).join('')}<button class="reveal ${revealed?'is-revealed':''}" id="next" aria-label="${revealed?'Carte suivante':'Révéler la carte'}">${revealed?card(c):backCard()}</button></div>${revealed?`<div class="revealed-label"><span class="new-label">${save.lastNew[revealIndex]?'Nouveau':'Doublon'}</span><small class="rtext${c.rarity}">${R[c.rarity]}</small><h2>${escapeHtml(c.name)}</h2><p>${escapeHtml(c.work||'Œuvre à confirmer')}</p></div>`:'<p>Touche la carte pour la retourner</p>'}<div class="progress">${results.map((x,i)=>{const seen=i<revealIndex||(i===revealIndex&&revealed);return `<span class="${seen?'seen':''}" aria-label="Carte ${i+1}${seen?' révélée':''}">${seen?portrait(x):'?'}</span>`}).join('')}</div><p class="hint">Espace : suivante · maintenir : avance rapide</p><button class="secondary" id="all">Tout révéler</button></div>`;
+}
+function collection(){
+ const owned=CHARACTERS.filter(c=>save.inventory[c.id]>0),total=Object.values(save.inventory).reduce((a,b)=>a+b,0);
+ const albums=KyaraCollection.albums(CHARACTERS,save.inventory);
+ const selected=KyaraCollection.owned(CHARACTERS,save.inventory,{query:collectionQuery,rarity:collectionRarity,work:collectionWork,sort:collectionSort,duplicates:duplicatesOnly});
+ const tabs=`<div class="collection-tabs" role="group" aria-label="Vue de collection"><button data-collection-tab="cards" aria-pressed="${collectionTab==='cards'}">Mes cartes</button><button data-collection-tab="albums" aria-pressed="${collectionTab==='albums'}">Albums · ${albums.filter(a=>a.complete).length}/${albums.length}</button></div>`;
+ const albumView=`<p>Progression parmi les personnages disponibles dans ce prototype. Les albums complets du jeu d'origine restent à documenter.</p><div class="albums-grid">${albums.map(a=>`<button class="album ${a.complete?'complete':''}" data-album="${escapeHtml(a.work)}"><div class="album-portraits">${a.cards.slice(0,3).map(c=>`<div class="album-portrait ${save.inventory[c.id]?'':'locked'}">${portrait(c)}</div>`).join('')}</div><div class="album-copy"><h2>${escapeHtml(a.work)}</h2><span>${a.owned} / ${a.total} personnages${a.complete?' · Album complété':''}</span><progress value="${a.owned}" max="${a.total}" aria-label="Progression ${escapeHtml(a.work)}"></progress></div></button>`).join('')}</div>`;
+ const controls=`<div class="controls collection-controls"><input id="collection-search" aria-label="Rechercher dans la collection" placeholder="Perso ou univers…" value="${escapeHtml(collectionQuery)}"><select id="collection-rarity" aria-label="Filtrer par rareté"><option value="Toutes">Toutes les raretés</option>${R.map((name,i)=>`<option value="${i}" ${String(collectionRarity)===String(i)?'selected':''}>${name}</option>`).join('')}</select><select id="collection-sort" aria-label="Trier les cartes">${[['rank','Numéro de catalogue'],['rarity','Rareté'],['name','Nom']].map(([v,label])=>`<option value="${v}" ${collectionSort===v?'selected':''}>${label}</option>`).join('')}</select><label><input id="duplicates-only" type="checkbox" ${duplicatesOnly?'checked':''}> Doublons seulement</label></div>${collectionWork?`<div class="album-filter">Album : ${escapeHtml(collectionWork)} <button id="clear-album">Tous les univers</button></div>`:''}`;
+ const gallery=`<p>Ouvre une fiche en cliquant sur la carte. Le recyclage conserve toujours un exemplaire.</p>${controls}<div class="gallery">${selected.length?selected.map(c=>`<div class="collection-item"><button class="card-link" data-card="${c.id}" aria-label="Voir ${escapeHtml(c.name)}">${card(c,true)}</button><div class="item-actions"><span>× ${save.inventory[c.id]}</span><button data-recycle="${c.id}" ${save.inventory[c.id]<2?'disabled':''}>Recycler +${REC[c.rarity]} ◆</button><label class="upload">Illustration<input type="file" accept="image/*" data-art="${c.id}" hidden></label></div></div>`).join(''):`<div class="empty">${owned.length?'Aucune carte ne correspond aux filtres.':'Aucune carte pour le moment. Ouvre ton premier booster !'}</div>`}</div>`;
+ return `<section class="content"><div class="section-title"><h1>Ma collection</h1><span>${owned.length} personnages uniques · ${total} cartes</span></div>${tabs}${collectionTab==='albums'?albumView:gallery}</section>`;
+}
+function wiki(){
+ const unlocked=CHARACTERS.filter(c=>save.inventory[c.id]>0).length;
+ const filtered=CHARACTERS.filter(c=>(c.name+' '+c.work).toLowerCase().includes(search.toLowerCase())&&(filter==='Toutes'||R[c.rarity]===filter)&&(!unlockedOnly||save.inventory[c.id]>0)).sort((a,b)=>a.rank-b.rank);
+ return `<section class="content"><div class="section-title"><h1>Le wiki des persos</h1><span>${unlocked} / ${CHARACTERS.length} fiches débloquées</span></div><p>Catalogue de démonstration. Obtiens une carte pour débloquer sa fiche. Les noms incertains restent à confirmer.</p><div class="controls"><input id="search" aria-label="Rechercher un personnage ou univers" placeholder="Perso ou univers…" value="${escapeHtml(search)}"><select id="filter" aria-label="Filtrer par rareté">${['Toutes',...R].map(x=>`<option ${filter===x?'selected':''}>${x}</option>`).join('')}</select><label><input id="unlocked-only" type="checkbox" ${unlockedOnly?'checked':''}> Fiches débloquées seulement</label></div><div class="wiki-grid">${filtered.map(c=>`<button class="wiki-item ${save.inventory[c.id]?'':'locked'}" data-card="${c.id}" aria-label="${escapeHtml(c.name)}${save.inventory[c.id]?' — fiche débloquée':' — fiche verrouillée'}"><div class="wiki-art">${portrait(c)}</div><div><b>${escapeHtml(c.name)}</b><small>${escapeHtml(c.work||'Œuvre à confirmer')} · #${String(c.rank).padStart(4,'0')}</small></div><strong class="rarity-text rtext${c.rarity}">${RARITY_CODES[c.rarity]}</strong>${save.inventory[c.id]?'':'<span class="lock-icon" aria-hidden="true">🔒</span>'}</button>`).join('')||'<div class="empty">Aucune fiche ne correspond aux filtres.</div>'}</div></section>`;
+}
+function bindPortraits(container=document){
+ container.querySelectorAll('[data-portrait]').forEach(img=>{const fallback=()=>{img.onerror=null;img.removeAttribute('style');img.src=KyaraArtwork.fallback;img.classList.add('unavailable-art');img.alt='Illustration non disponible — '+img.alt};img.onerror=fallback;if(img.complete&&!img.naturalWidth)fallback()});
+}
+function showCard(id){
+ const c=CHARACTERS.find(c=>c.id===id);if(!c)return;
+ const unlocked=save.inventory[id]>0;
+ const dialog=document.createElement('dialog');dialog.className='card-dialog';dialog.setAttribute('aria-labelledby','card-detail-title');
+ // The report verifies these eleven POW/AURA pairs. All others are demo substitutes.
+ const statsObserved=new Set(['1','204','675','1685','3369','5053','6293','6085','4131','2566','2154']).has(id);
+ dialog.innerHTML=`<button class="dialog-close" aria-label="Fermer la fiche">✕</button><div class="card-detail-layout"><div class="detail-preview">${unlocked?card(c):backCard()}</div><div class="card-detail-copy"><small class="rtext${c.rarity}">${R[c.rarity]} · #${String(c.rank).padStart(4,'0')}/6736</small><h1 id="card-detail-title">${escapeHtml(c.name)}</h1><h2>${escapeHtml(c.work||'Œuvre à confirmer')}</h2>${unlocked?`<p class="detail-owned">${save.inventory[id]} exemplaire${save.inventory[id]>1?'s':''} dans ta collection</p><dl><dt>POW</dt><dd>${c.pow}</dd><dt>AURA</dt><dd>${c.aura}</dd></dl><p class="hint">${statsObserved?'Statistiques relevées dans le rapport.':'Statistiques de démonstration, à confirmer.'}</p><button id="card-flip">Retourner la carte</button><p class="hint">${escapeHtml(save.art[id]?'Illustration personnelle.':KyaraArtwork.portraits[id]?.sourceNote||'Portrait non disponible.')}</p><p class="hint">Biographie, apparitions et voix non documentées pour le moment.</p>`:'<p class="locked-notice">Fiche verrouillée. Obtiens ce personnage dans un booster pour découvrir sa carte.</p>'}</div></div>`;
+ document.body.append(dialog);bindPortraits(dialog);dialog.querySelectorAll('img').forEach(img=>img.loading='eager');
+ dialog.querySelector('.dialog-close').onclick=()=>dialog.close();
+ dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+ dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+ const flip=dialog.querySelector('#card-flip');let back=false;
+ if(flip)flip.onclick=()=>{back=!back;dialog.querySelector('.detail-preview').innerHTML=back?backCard():card(c);flip.textContent=back?'Voir le recto':'Retourner la carte';bindPortraits(dialog);dialog.querySelectorAll('img').forEach(img=>img.loading='eager')};
+ dialog.showModal();
+}
+function settings(){return `<section class="content settings"><h1>Paramètres</h1><p>Tout est enregistré dans ce navigateur, sur cet ordinateur. Aucune connexion au site d'origine.</p><div class="settings-box"><h3>Sauvegarde</h3><button id="export">Exporter ma sauvegarde JSON</button><label class="upload">Importer une sauvegarde JSON<input id="import" type="file" accept="application/json" hidden></label></div><div class="settings-box"><h3>Personnalisation</h3><p>Depuis Collection, clique sur « Illustration » pour remplacer le portrait par une image locale. Les portraits intégrés sont stockés localement. Tes remplacements manuels restent prioritaires et sont inclus dans la sauvegarde JSON. Évite les fichiers trop volumineux.</p></div><div class="settings-box"><h3>Performances</h3><label><input id="low-motion" type="checkbox" ${save.preferences?.lowMotion?'checked':''}> Mode allégé : animations et halos réduits</label></div><div class="settings-box"><h3>Prototype</h3><p>Recharge gratuite proposée : 1 charge / 30 min, maximum 15. Cette durée n'a pas été confirmée par l'audit.</p><button id="reset">Réinitialiser la partie</button></div></section>`}
+function render(){recharge();document.body.classList.toggle('low-motion',!!save.preferences?.lowMotion);app.innerHTML=(page==='Ouverture'?`<header class="opening-header"><button id="back">← Boosters</button><strong>${BOOSTERS[chosen][1]} ${BOOSTERS[chosen][0]}</strong><div class="resources"><span>◆ ${save.chakra}</span><span>🎴 ${save.charges}/15</span></div></header>`:header())+`<main id="contenu">`+(page==='Boosters'?home():page==='Ouverture'?opening():page==='Collection'?collection():page==='Wiki'?wiki():settings())+`</main><footer>KYARA SOLO · Prototype non officiel · Sauvegarde locale · Aucune illustration d'origine intégrée</footer>`;
+ bindPortraits();
+ document.querySelectorAll('[data-nav]').forEach(x=>x.onclick=()=>{page=x.dataset.nav;phase='ready';render()});document.querySelectorAll('[data-booster]').forEach(x=>x.onclick=()=>{chosen=+x.dataset.booster;render()});const on=(id,fn)=>{let el=document.getElementById(id);if(el)el.onclick=fn};on('to-open',()=>{if(save.pendingOpening){resumeOpening()}else{page='Ouverture';phase='ready'}render()});on('open',openPack);on('back',()=>{page='Boosters';clearTimeout(openingTimer);phase='ready';render()});on('again',()=>{phase='ready';render()});on('collection',()=>{page='Collection';render()});on('next',next);on('all',()=>{phase='summary';completeOpening();render()});on('export',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(save,null,2)],{type:'application/json'}));a.download='kyara-solo-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000)});on('reset',()=>{if(confirm('Effacer toute ta progression ?')){save=defaults();store();page='Boosters';render()}});
+ document.querySelectorAll('[data-recycle]').forEach(x=>x.onclick=()=>{const id=x.dataset.recycle;if(save.inventory[id]>1){const candidate={...save,inventory:{...save.inventory,[id]:save.inventory[id]-1},chakra:save.chakra+REC[CHARACTERS.find(c=>c.id===id).rarity]};try{persist(candidate);save=candidate;render()}catch{alert('Stockage local saturé : recyclage annulé.')}}});
+ document.querySelectorAll('[data-art]').forEach(x=>x.onchange=e=>{const file=e.target.files[0];if(!file)return;if(file.size>2*1024*1024){alert('Image trop volumineuse (2 Mo maximum).');return}const reader=new FileReader();reader.onload=()=>{const candidate={...save,art:{...save.art,[x.dataset.art]:reader.result}};try{KyaraEngine.validateSave(candidate);persist(candidate);save=candidate;render()}catch{alert('Stockage local saturé. Utilise des images plus petites.')}};reader.readAsDataURL(file)});
+ document.querySelectorAll('[data-card]').forEach(el=>el.onclick=()=>showCard(el.dataset.card));
+ document.querySelectorAll('[data-collection-tab]').forEach(el=>el.onclick=()=>{collectionTab=el.dataset.collectionTab;render()});
+ document.querySelectorAll('[data-album]').forEach(el=>el.onclick=()=>{collectionTab='cards';collectionWork=el.dataset.album;collectionQuery='';collectionRarity='Toutes';duplicatesOnly=false;render()});
+ on('clear-album',()=>{collectionWork='';render()});
+ const cq=document.getElementById('collection-search');if(cq)cq.oninput=()=>{collectionQuery=cq.value;const cursor=cq.selectionStart;render();const el=document.getElementById('collection-search');el.focus();el.setSelectionRange(cursor,cursor)};
+ const cr=document.getElementById('collection-rarity');if(cr)cr.onchange=()=>{collectionRarity=cr.value;render()};
+ const cs=document.getElementById('collection-sort');if(cs)cs.onchange=()=>{collectionSort=cs.value;render()};
+ const dup=document.getElementById('duplicates-only');if(dup)dup.onchange=()=>{duplicatesOnly=dup.checked;render()};
+ const uo=document.getElementById('unlocked-only');if(uo)uo.onchange=()=>{unlockedOnly=uo.checked;render()};
+ const lm=document.getElementById('low-motion');if(lm)lm.onchange=()=>{save.preferences={...save.preferences,lowMotion:lm.checked};store();render()};
+ const imp=document.getElementById('import');if(imp)imp.onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const data=JSON.parse(rd.result);KyaraEngine.validateSave(data);if(data.pendingOpening&&data.pendingOpening.ids.some(id=>!CHARACTERS.some(c=>c.id===id)))throw Error();if(confirm('Remplacer la sauvegarde actuelle ?')){const candidate={...defaults(),...data};persist(candidate);save=candidate;phase='ready';resumeOpening();render()}}catch{alert('Fichier de sauvegarde invalide.')}};rd.readAsText(f)};
+ const si=document.getElementById('search');if(si)si.oninput=e=>{search=e.target.value;const cursor=si.selectionStart;render();const s=document.getElementById('search');s.focus();s.setSelectionRange(cursor,cursor)};const fi=document.getElementById('filter');if(fi)fi.onchange=e=>{filter=e.target.value;render()};}
+window.addEventListener('keydown',e=>{if(!document.querySelector('dialog[open]')&&e.code==='Space'&&page==='Ouverture'&&['hidden','revealed'].includes(phase)&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();next()}});resumeOpening();render();
