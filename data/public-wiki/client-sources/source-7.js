@@ -1,1 +1,1 @@
-import"./h8p7Lo5f.js";var e=()=>`Connexion en cours…`;export{e as t};
+import"./h8p7Lo5f.js";var e=()=>`Chargement…`;export{e as t};

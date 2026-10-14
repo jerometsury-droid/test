@@ -1,1 +1,1 @@
-import"./h8p7Lo5f.js";var e=e=>`${e?.d} j ${e?.h} h`,t=e=>`${e?.h} h ${e?.m}`,n=e=>`${e?.m} min`;export{t as n,e as r,n as t};
+typeof window<`u`&&((window.__svelte??={}).v??=new Set).add(`5`);

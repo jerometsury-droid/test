@@ -1,1 +1,1 @@
-import{c as e,r as t}from"../chunks/MkiTJEvz.js";export{e as load_css,t as start};
+import"./h8p7Lo5f.js";var e=()=>`Copié ✓`;export{e as t};
