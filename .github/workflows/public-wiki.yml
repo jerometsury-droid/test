@@ -3,6 +3,9 @@ on:
   push:
     branches: [public-wiki-source]
   workflow_dispatch:
+concurrency:
+  group: public-wiki-source
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:

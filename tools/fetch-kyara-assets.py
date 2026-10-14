@@ -32,7 +32,7 @@ def run():
  assert len(rows)==6736 and len({r['id'] for r in rows})==6736
  assert sorted(r['rank'] for r in rows)==list(range(6736))
  aliases={}
- def norm(value):return ''.join(c.lower() for c in unicodedata.normalize('NFKD',value) if c.isalnum() and not unicodedata.combining(c))
+ def norm(value):return ''.join(c.lower() for c in unicodedata.normalize('NFKD',value.replace('×','x')) if c.isalnum() and not unicodedata.combining(c))
  for old in BASE:
   matches=[r for r in rows if norm(r['name'])==norm(old['name']) and (not old['work'] or norm(r['series'])==norm(old['work']))]
   if len(matches)!=1:raise RuntimeError(f"Ambiguous saved identity {old['id']}: {old['name']}")
