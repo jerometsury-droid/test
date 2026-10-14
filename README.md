@@ -1,10 +1,10 @@
-# Kyara Solo 0.4
+# Kyara Solo 0.4.1
 
 Jeu personnel hors ligne, inspiré de Kyara. Projet indépendant, sans affiliation officielle.
 
 ## Windows
 
-Téléchargez l’artefact `KyaraSolo-Windows-v0.4` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
+Téléchargez l’artefact `KyaraSolo-Windows-v0.4.1` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
 
 ## Cette version
 
@@ -19,7 +19,7 @@ Téléchargez l’artefact `KyaraSolo-Windows-v0.4` dans GitHub Actions, extraye
 
 ## Limites connues
 
-Les habillages des neuf boosters sont distincts. Leur sélection thématique de personnages reste à reproduire : la liste publique fournit les tailles des pools mais pas leurs identifiants. Le moteur utilise actuellement le catalogue complet pour les neuf types ; cette limitation n’est pas présentée comme une correspondance officielle. Les charges solo restent plafonnées à 15 pour préserver les parties existantes, contre un plafond public normal de 10. Les animations sont une reproduction locale et non les fichiers du site.
+Les neuf boosters utilisent désormais leurs listes exactes de personnages, récupérées depuis les réponses publiques du site. Les lots affichent toutes leurs cartes ensemble ; les Mythiques ont un cadre irisé et les Légendaires un fond doré sombre. Les charges solo restent plafonnées à 15 pour préserver les parties existantes, contre un plafond public normal de 10. Les animations sont une reproduction locale et non les fichiers du site.
 
 Les droits des portraits restent à leurs auteurs et ayants droit ; la présence publique d’une image ne garantit pas une licence commerciale. Voir `assets/portraits/CREDITS.md` et les licences des polices locales dans `assets/fonts/`.
 

@@ -1,1 +1,0 @@
-import"./h8p7Lo5f.js";var e=()=>`Copié ✓`;export{e as t};

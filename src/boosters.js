@@ -10,3 +10,11 @@ const BOOSTER_THEMES=[
  {id:'waifus',subtitle:'Personnages féminins',accent:'#ff68a8',foil:'#efcedd'},
  {id:'husbandos',subtitle:'Personnages masculins',accent:'#79a8e9',foil:'#394350'}
 ];
+
+// Exact public source memberships, converted to stable solo save IDs.
+const SOURCE_PACK_IDS=['all','shonen','isekai','seinen','shojo','sport','mecha','waifu','husbando'];
+BOOSTERS.forEach((booster,index)=>{
+ const ids=globalThis.KyaraBoosterPools?.pools[SOURCE_PACK_IDS[index]];
+ if(!Array.isArray(ids)||!ids.length)throw Error('Liste de personnages manquante pour '+booster[0]);
+ booster.poolIds=ids;booster.poolSource=globalThis.KyaraBoosterPools.sourceURL;
+});

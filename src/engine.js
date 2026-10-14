@@ -20,17 +20,28 @@
   if(s.freeAt!==undefined&&(!Number.isFinite(s.freeAt)||s.freeAt<0))throw Error('Date invalide');
   return s;
  }
+ const poolCache=new WeakMap();
+ function rarityPools(catalog,definition){
+  let cached=poolCache.get(catalog);if(!cached){cached=new WeakMap();poolCache.set(catalog,cached)}
+  if(cached.has(definition))return cached.get(definition);
+  const eligible=definition.poolIds===undefined?null:new Set(definition.poolIds);
+  const buckets=Array.from({length:6},()=>[]);
+  for(const card of catalog)if(!eligible||eligible.has(card.id))buckets[card.rarity].push(card);
+  if(buckets.some(pool=>!pool.length))throw Error('Pool du booster incomplet. Aucun tirage ni débit effectué.');
+  cached.set(definition,buckets);return buckets;
+ }
  function open(input,booster,catalog,boosters,random=Math.random,now=Date.now()){
   validateSave(input);
   if(input.pendingOpening)throw Error('Termine le booster déjà ouvert.');
   if(!boosters[booster])throw Error('Booster inconnu');
   const price=boosters[booster][2];
   if(input.charges<=0&&input.chakra<price)throw Error('Chakra insuffisant. Recycle des doublons ou attends une charge gratuite.');
+  const pools=rarityPools(catalog,boosters[booster]);
   const divine=random()<1/RULES.divine,golden=(input.standard+1)%RULES.golden===0,pity=input.pity+1>=RULES.pity;
   const minimums=divine?[3,3,3,3,5]:golden?RULES.goldenMinimums:RULES.minimums;
   const rarities=minimums.map(min=>weighted(min,random));
   if(divine||pity)rarities[4]=5;
-  const cards=rarities.map(r=>{const pool=catalog.filter(c=>c.rarity===r);if(!pool.length)throw Error('Catalogue incomplet pour la rareté '+r);return pool[Math.floor(random()*pool.length)]});
+  const cards=rarities.map(r=>{const pool=pools[r];if(!pool.length)throw Error('Catalogue incomplet pour la rareté '+r);return pool[Math.floor(random()*pool.length)]});
   const save={...input,inventory:{...input.inventory},history:[...(input.history||[])],schemaVersion:2,rulesVersion:RULES.version};
   const seen=new Set(Object.keys(save.inventory).filter(id=>save.inventory[id]>0));
   save.lastNew=cards.map(c=>{const fresh=!seen.has(c.id);seen.add(c.id);return fresh});

@@ -1,1 +1,0 @@
-function e(e,t,n){return new Intl.PluralRules(e,n).select(Number(t)-Number(n?.offset??0))}export{e as t};

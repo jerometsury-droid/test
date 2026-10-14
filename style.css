@@ -28,3 +28,39 @@
 .pagination{display:flex;align-items:center;justify-content:center;gap:18px;margin:30px 0 15px}.pagination span{font:12px ui-monospace,monospace;color:#b8a6bf}.pagination button{border-radius:22px;padding:10px 15px;font-size:12px}@media(max-width:520px){.pagination{gap:9px}.pagination span{font-size:10px}.pagination button{padding:10px;font-size:11px}}
 @media(max-width:650px){header nav{gap:2px}header nav button{font-size:12px;padding:9px 8px}.profile-mark{display:none}}
 @font-face{font-family:'Kyara Solo Display';src:url('assets/fonts/kyara-display.ttf') format('truetype');font-weight:200 900;font-style:normal;font-display:swap}@font-face{font-family:'Kyara Solo UI';src:url('assets/fonts/kyara-ui-regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:'Kyara Solo UI';src:url('assets/fonts/kyara-ui-bold.ttf') format('truetype');font-weight:600 950;font-style:normal;font-display:swap}:root{font-family:'Kyara Solo UI',system-ui,'Segoe UI',sans-serif}.logo,h1,h2,.foil-brand,.pack-name,.primary{font-family:'Kyara Solo Display','Kyara Solo UI',system-ui,sans-serif}.cardhead,.card-detail-copy h1{font-family:'Kyara Solo UI',system-ui,sans-serif}.foil-brand{letter-spacing:2px}.foil-pack .pack-name{font-size:calc(var(--pack-width)*.081);font-weight:800}.scene .primary{font-size:14px}.native-name{color:#a696b2;font-size:15px;letter-spacing:2px;margin:6px 0}
+
+/* All cards from a batch share one responsive result grid. */
+.summary-scene.batch-summary{justify-content:flex-start;min-height:calc(100dvh - 86px);padding-top:32px;padding-bottom:40px}
+.summary-scene .summary.summary-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:28px 18px;margin:24px auto;width:100%;max-width:1140px}
+.summary-scene .summary-grid .summary-slot{width:100%;transform:none!important;animation:none;margin:0;min-width:0}
+.summary-scene .summary-grid .summary-slot .card{width:100%;height:310px;transform:none;box-shadow:0 5px 18px #0006}
+.summary-grid .cardhead span{overflow-wrap:anywhere}
+@media(max-width:1000px){.summary-scene .summary.summary-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:800px){.summary-scene .summary.summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 12px}}
+@media(max-width:520px){.summary-scene .summary.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 10px}.summary-scene .summary-grid .summary-slot .card{height:275px}.batch-summary h1{font-size:30px}}
+
+/* Mythic holographic frame: red/orange above, violet/cyan below, white medal. */
+.card.r5{border:4px solid transparent;background:linear-gradient(#14101d,#14101d) padding-box,conic-gradient(from 215deg,#7976ff,#cb6dfb,#ff3e7b,#ff6d2e,#ffbf35,#40d4bb,#4dccf6,#7976ff) border-box;box-shadow:0 0 0 1px #fff2,0 0 26px #b657ec55,0 9px 26px #0009}
+.card.r5 .cardhead{color:#fff;font-weight:900}
+.card.r5 .cardhead span{font-size:18px;font-weight:900;line-height:1.15}
+.card.r5.mini .cardhead span{font-size:14px}
+.card.r5 .cardhead b{background:#fff;color:#111019;box-shadow:0 0 12px #fff4;font-size:14px;font-weight:950;flex-shrink:0}
+.card.r5 .portrait{border-radius:9px;isolation:isolate}
+.card.r5 .portrait::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,transparent 20%,#f6baff16 29%,#ffffff32 32%,transparent 36%,transparent 63%,#92eaff18 67%,transparent 72%),radial-gradient(ellipse at var(--shine-x,68%) var(--shine-y,22%),#fff4,transparent 28%);mix-blend-mode:screen}
+.card.r5 .portrait small{z-index:1}
+.card.r5 .work{color:#eee2f5;font-weight:700}
+.card.r5 .stats{font-weight:800;color:white;background:#0b0911}
+.card.r5:hover{box-shadow:0 0 0 1px #fff4,0 0 32px #b657ec77,0 9px 26px #0009}
+
+/* Rarity colours also tint the card body, matching the supplied reference. */
+.card.r0{background:linear-gradient(#25242c,#1b1a21);border-color:#777984}
+.card.r1{background:linear-gradient(#163f2c,#11271e);border-color:#43c77b}
+.card.r2{background:linear-gradient(#173453,#111e33);border-color:#4d9bff}
+.card.r3{background:linear-gradient(#42265a,#25162e);border-color:#bf76f8}
+.card.r4{background:linear-gradient(140deg,#634b10,#3c2d08 48%,#271e08);border-color:#ffd21a;box-shadow:0 0 24px #e8b82c44,0 9px 26px #0009}
+.card.r4 .cardhead b{background:#ffd21a;color:#281e00}
+.card.r4 .work{color:#f4e9c2;font-weight:700}
+.card.r4 .stats{background:#1b1404;color:#fff8dc;font-weight:800}
+.card .cardhead span{font-family:'Kyara Solo Display','Kyara Solo UI',sans-serif;font-size:17px;line-height:1.2}
+.card.mini .cardhead span,.scene .reveal .card .cardhead span{font-size:13px}
+.card.r5 .cardhead span{font-size:17px}.card.r5.mini .cardhead span{font-size:13px}
