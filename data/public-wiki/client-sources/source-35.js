@@ -1,0 +1,1 @@
+import{W as e,ot as t,st as n}from"./Brr6TAzv.js";import{i as r}from"./CLyjMPg4.js";import{i}from"./DSamSPFW.js";var a=new class{#e=n(null);get value(){return e(this.#e)}set value(e){t(this.#e,e,!0)}#t=null;load(){return this.#t??=r.config().then(e=>(i(e),this.value=e,e)).catch(()=>(this.#t=null,null)),this.#t}get freeMax(){return this.value?.freePacks.max??10}};export{a as t};

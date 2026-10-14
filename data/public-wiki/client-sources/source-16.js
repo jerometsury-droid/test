@@ -1,0 +1,1 @@
+import"./h8p7Lo5f.js";var e=e=>`${e?.h} h ${e?.m} min`;export{e as t};
