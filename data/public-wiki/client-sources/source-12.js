@@ -1,0 +1,1 @@
+import"./h8p7Lo5f.js";var e=()=>`Annuler`;export{e as t};

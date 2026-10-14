@@ -1,0 +1,1 @@
+function e(e,t=`sm`){return`/cards/${t}/${e.id}.webp`}function t(e,t){let n=t,r=()=>{n&&e.getAttribute(`src`)!==n&&(e.src=n)};return e.addEventListener(`error`,r),{update(e){n=e},destroy(){e.removeEventListener(`error`,r)}}}export{t as n,e as t};

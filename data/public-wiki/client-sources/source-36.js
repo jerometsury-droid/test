@@ -1,0 +1,1 @@
+import{W as e,at as t,ot as n,st as r}from"./Brr6TAzv.js";import{p as i}from"./CLyjMPg4.js";var a=new class{#e=r(t(i()));get now(){return e(this.#e)}set now(e){n(this.#e,e,!0)}#t=null;#n=0;use(){return this.#n++===0&&(this.#t=setInterval(()=>this.now=i(),1e3)),()=>{--this.#n===0&&this.#t&&(clearInterval(this.#t),this.#t=null)}}};export{a as t};
