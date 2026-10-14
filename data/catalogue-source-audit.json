@@ -1,0 +1,36 @@
+{
+  "verifiedSourceCharacters": 2769,
+  "extraPlayableCards": 2740,
+  "existingMatches": 29,
+  "downloadedPortraits": 2769,
+  "unresolved": [
+    {
+      "work": "JoJo’s Bizarre Adventure",
+      "reason": "No exact anime title match"
+    },
+    {
+      "id": "5053",
+      "name": "ACDC",
+      "work": "JoJo’s Bizarre Adventure",
+      "reason": "Missing or ambiguous character match"
+    },
+    {
+      "id": "6293",
+      "name": "Raine",
+      "work": "That Time I Got Reincarnated as a Slime",
+      "reason": "Missing or ambiguous character match"
+    },
+    {
+      "id": "2365",
+      "name": "Vamola",
+      "work": "DAN DA DAN",
+      "reason": "Missing or ambiguous character match"
+    },
+    {
+      "id": "6709",
+      "name": "Tenshu",
+      "work": "Fairy Tail",
+      "reason": "Missing or ambiguous character match"
+    }
+  ]
+}
