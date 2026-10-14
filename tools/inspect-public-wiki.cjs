@@ -18,10 +18,11 @@ function candidateArrays(value,result=[],depth=0){
 }
 (async()=>{
  const browser=await chromium.launch({channel:'chrome',headless:true});
- const page=await browser.newPage({viewport:{width:1366,height:900}}),tasks=[],reports=[],catalogues=[];
+ const page=await browser.newPage({viewport:{width:1366,height:900}}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[];
  page.on('response',response=>{
   if(!(response.headers()['content-type']||'').includes('application/json'))return;
   tasks.push((async()=>{try{const value=await response.json(),url=new URL(response.url());
+   if(url.pathname==='/api/config')for(const key of ['catalogSize','freePacks','recycle','dropWeights','pity','golden','godPackChance','godPackSlots'])configuration[key]=value[key];if(/booster/.test(url.pathname))boosterResponses.push({sourceURL:url.origin+url.pathname,data:sanitize(value)});
    const arrays=candidateArrays(value);reports.push({url:url.origin+url.pathname,status:response.status(),rootKeys:Object.keys(value||{}).slice(0,30),candidateCounts:arrays.map(a=>a.length)});
    for(const data of arrays)catalogues.push({sourceURL:url.origin+url.pathname,records:sanitize(data)});
   }catch{}})());
@@ -32,11 +33,15 @@ function candidateArrays(value,result=[],depth=0){
   await page.waitForTimeout(6000);title=await page.title();
   const text=await page.locator('body').innerText();
   blocked=/just a moment|attention required|verify you are human|vérifiez que vous êtes humain|checking your browser/i.test(title+' '+text)||status===403;
-  if(!blocked){for(let i=0;i<4;i++){await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));await page.waitForTimeout(1500)}}
+  if(!blocked){
+   await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);
+   const view=page.getByRole('button',{name:/Voir.*(persos|personnages)/i}).first();
+   if(await view.count()&&await view.isEnabled()){await view.click();await page.waitForTimeout(4000)}
+  }
  }catch(error){reports.push({navigationError:error.message});blocked=true}
  await Promise.allSettled(tasks);
  await fs.mkdir('data/public-wiki',{recursive:true});
- await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
+ await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,configuration,boosterResponses,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
  for(let i=0;i<catalogues.length;i++)await fs.writeFile('data/public-wiki/catalogue-'+i+'.json',JSON.stringify(catalogues[i],null,2));
  await browser.close();console.log(JSON.stringify({status,title,blocked,catalogueCounts:catalogues.map(c=>c.records.length)}));
 })().catch(e=>{console.error(e);process.exit(1)});

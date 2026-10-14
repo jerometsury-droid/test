@@ -8,7 +8,7 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 25
     env:
       ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
@@ -22,10 +22,12 @@ jobs:
       - run: npm ci
       - name: Observe anonymous public catalogue, stop on human verification
         run: node tools/inspect-public-wiki.cjs
+      - name: Download all public catalogue reference images
+        run: python3 -u tools/fetch-kyara-assets.py
       - name: Save public source audit
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/public-wiki
+          git add data/public-wiki data/catalogue-full.js data/artwork-manifest.js data/catalogue-source-audit.json assets/portraits
           git diff --cached --quiet || git commit -m 'Record anonymous public Wiki catalogue evidence'
           git push origin HEAD:public-wiki-source
