@@ -18,3 +18,10 @@ BOOSTERS.forEach((booster,index)=>{
  if(!Array.isArray(ids)||!ids.length)throw Error('Liste de personnages manquante pour '+booster[0]);
  booster.poolIds=ids;booster.poolSource=globalThis.KyaraBoosterPools.sourceURL;
 });
+
+BOOSTERS.forEach(b=>{b.category='free';b.slots=[0,0,0,1,2];b.usesFreePacks=true;b.goldenEligible=true});
+for(const source of globalThis.KyaraShopPacks||[]){
+ const b=[source.name,source.symbol,source.price];Object.assign(b,source,{usesFreePacks:false});if(!b.featuredIds.length)delete b.featuredIds;BOOSTERS.push(b);
+ const foil=source.sourceId==='mini'?'#e1d6c1':source.sourceId==='banner-jjk'?'#af93d3':source.sourceId==='top'?'#b77464':source.sourceId==='deep'?'#5a87a9':source.sourceId==='chest'?'#503372':'#252125';
+ BOOSTER_THEMES.push({id:source.sourceId,subtitle:source.sourceId==='banner-jjk'?'8 vedettes Mythiques':source.subtitle,accent:source.accent,foil});
+}

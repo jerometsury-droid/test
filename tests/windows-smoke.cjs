@@ -22,6 +22,7 @@ const {_electron}=require('playwright'),path=require('node:path'),assert=require
   await page.keyboard.press('Escape');await page.waitForSelector('dialog',{state:'detached'});
   await page.click('[data-nav="Wiki"]');await page.check('#unlocked-only');
   assert.equal(await page.locator('.wiki-item').count(),Object.keys(saved.inventory).length);
+  await page.click('[data-nav="Boosters"]');await page.click('[data-booster-category="limited"]');await page.click('[data-booster="9"]');const cash=await page.evaluate(()=>save.chakra);await page.click('#to-open');await page.click('[data-quantity="1"]');await page.click('#open');await page.waitForSelector('#next');await page.click('#all');assert.equal(await page.locator('.summary-slot').count(),4);assert.equal(await page.evaluate(()=>save.chakra),cash-1000);assert.equal(await page.evaluate(()=>save.charges),5);assert.ok(await page.evaluate(()=>results.some(c=>c.rarity===5)));
   assert.deepEqual(errors,[]);console.log('Native Windows PASS: offline portraits, booster, persisted collection, card dialog, unlocked Wiki.');
  }finally{await application.close()}
 })().catch(e=>{console.error(e);process.exit(1)});

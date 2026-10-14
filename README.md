@@ -1,12 +1,28 @@
-# Kyara Solo 0.5.1
+# Kyara Solo 0.6.0
 
 Jeu personnel hors ligne, inspiré de Kyara. Projet indépendant, sans affiliation officielle.
 
 ## Windows
 
-Téléchargez l’artefact `KyaraSolo-Windows-v0.5.1` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
+Téléchargez l’artefact `KyaraSolo-Windows-v0.6.0` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
 
 Les résultats de chaque ouverture sont triés du Mythique au Commun, dans une grille compacte à sept colonnes sur grand écran. Les badges Nouveau restent associés aux bons tirages ; le résumé indique aussi les doublons et leur valeur de recyclage.
+
+## Boutique et paquets spéciaux
+
+Les trois onglets suivent les captures : **Gratuits**, **Du jour & limités**, **Boutique**. Les neuf paquets standard gardent leurs charges gratuites ; les nouveaux paquets coûtent du chakra même lorsque des charges ou boosters bonus sont disponibles.
+
+| Paquet | Chakra | Cartes | Particularité |
+| --- | ---: | ---: | --- |
+| Sceau mythique | 1 000 | 4 | Rare, Épique, Légendaire et Mythique ou mieux ; achetable selon la demande, sans condition de récompense |
+| Bannière Jujutsu Kaisen | 200 | 5 | Huit vedettes Mythiques vérifiées, 50 % des Mythiques vers une vedette, vedette garantie après 100 paquets sans vedette |
+| Hall of Fame | 750 | 5 | Pool public des 1 000 favoris ; aucun personnage hors de ce pool |
+| Deep Cuts | 100 | 5 | Pool public de 5 457 personnages ; aucune Légendaire ni Mythique disponible |
+| Mini-booster | 100 | 3 | Commune, Peu commune, Rare ou mieux |
+| Coffret | 550 | 20 | Une Épique et trois Rares ou mieux garanties |
+| Prestige | 575 | 5 | Minimums U/R/R/E/E et taux augmentés, d’après les probabilités publiques |
+
+Tous les pools sont récupérés depuis leurs propres réponses publiques, sans déduction par anime ou genre. Les chances affichées utilisent les mêmes probabilités par emplacement que le tirage. Le prix de 1 000 du Sceau est un choix solo : le site original le propose uniquement en récompense. La bannière demeure disponible hors ligne ; aucun faux compte à rebours n’est affiché. Les anciens identifiants de boosters restent inchangés et les nouvelles tailles de paquet reprennent correctement après rechargement.
 
 ## Nouveautés inspirées de la vidéo du 14 octobre
 
