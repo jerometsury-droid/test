@@ -45,7 +45,7 @@ function candidateArrays(value,result=[],depth=0){
     const escaped=pack.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
     const candidates=page.locator('button').filter({hasText:new RegExp(escaped+(packId==='shonen'?'(?! Mix)':''))});
     if(await candidates.count()){try{await candidates.first().click({timeout:4000});await page.waitForTimeout(800)}catch{}}
-    const view=page.locator('button,a').filter({hasText:/Voir.*(persos|personnages)|See.*characters/i}).first();
+    const view=page.locator('button,a').filter({hasText:/Voir|See/i}).filter({hasText:/persos|personnages|characters/i}).first();
     const evidence={packId,expected:pack.rates?.poolSize,viewButtons:await view.count(),buttons:(await page.locator('button').allTextContents()).map(t=>t.trim()).filter(Boolean).slice(0,80)};
     if(await view.count()&&await view.isEnabled()){
      try{await view.click({timeout:5000});await page.waitForTimeout(2000);
