@@ -31,10 +31,44 @@ jobs:
         run: npm run package:windows
       - name: Exercise the packaged Windows application
         run: node tests/windows-smoke.cjs
-      - name: Upload complete Windows application
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      - name: Package browser version without executables
+        run: node tools/package-web.cjs
+      - name: Test actual local HTML in Windows Chrome
+        id: web_test
+        run: node tests/web-windows-smoke.cjs
+      - name: Scan packaged Windows files with Microsoft Defender
+        id: antivirus
+        timeout-minutes: 5
+        shell: pwsh
+        run: ./tools/scan-windows.ps1
+      - name: Upload browser-only game
+        if: always() && steps.web_test.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: KyaraSolo-Windows-v0.6.0
+          name: KyaraSolo-Web-v0.6.0
+          path: dist/KyaraSolo-Web/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload verification report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: KyaraSolo-verification-v0.6.0
+          path: dist/security-report/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Save public scan status
+        if: always()
+        shell: pwsh
+        run: |
+          if (Test-Path dist/security-report/scan.json) {
+            Get-Content dist/security-report/scan.json | Write-Output
+          }
+      - name: Upload antivirus-checked Windows application
+        if: success() && steps.antivirus.outputs.clean == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: KyaraSolo-Windows-checked-v0.6.0
           path: dist/KyaraSolo-win32-x64/
           if-no-files-found: error
           retention-days: 30

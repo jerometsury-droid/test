@@ -2,6 +2,14 @@
 
 Jeu personnel hors ligne, inspiré de Kyara. Projet indépendant, sans affiliation officielle.
 
+## Version navigateur sans exécutable
+
+Si l’archive Windows est bloquée par Chrome, ne désactivez pas sa protection pour la lancer. Le workflow fournit aussi `KyaraSolo-Web-v0.6.0` : extrayez tout le ZIP puis ouvrez `index.html` dans Chrome ou Edge. Ce paquet contient le jeu et ses 6 736 portraits, sans exécutable ni bibliothèque native. Les polices sont intégrées à la feuille de style pour le chargement direct depuis un fichier local.
+
+La sauvegarde du navigateur est distincte de celle de l’application Windows : exportez votre JSON dans l’ancienne application, puis importez-le dans les Paramètres du jeu navigateur. Gardez le dossier au même endroit ; exportez votre sauvegarde avant de le déplacer.
+
+La compilation Windows inclut désormais un contrôle Microsoft Defender, le statut des signatures et les empreintes SHA256. Le workflow n’envoie un nouvel artefact Windows « checked » que lorsqu’un scan exécuté avec succès n’a détecté aucune menace. Une indisponibilité du scanner est signalée, jamais présentée comme un résultat propre. Un scan antivirus ne garantit pas que le blocage de réputation Chrome soit levé. Le rapport est fourni dans `KyaraSolo-verification-v0.6.0`.
+
 ## Windows
 
 Téléchargez l’artefact `KyaraSolo-Windows-v0.6.0` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
