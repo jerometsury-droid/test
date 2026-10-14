@@ -18,7 +18,7 @@ function candidateArrays(value,result=[],depth=0){
 }
 (async()=>{
  const browser=await chromium.launch({channel:'chrome',headless:true});
- const page=await browser.newPage({viewport:{width:1366,height:900}}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[];
+ const page=await browser.newPage({viewport:{width:1366,height:900}}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[],viewerEvidence=[];
  page.on('response',response=>{
   if(!(response.headers()['content-type']||'').includes('application/json'))return;
   tasks.push((async()=>{try{const value=await response.json(),url=new URL(response.url());
@@ -35,13 +35,31 @@ function candidateArrays(value,result=[],depth=0){
   blocked=/just a moment|attention required|verify you are human|vérifiez que vous êtes humain|checking your browser/i.test(title+' '+text)||status===403;
   if(!blocked){
    await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);
-   const view=page.getByRole('button',{name:/Voir.*(persos|personnages)/i}).first();
-   if(await view.count()&&await view.isEnabled()){await view.click();await page.waitForTimeout(4000)}
+   const wanted=['all','shonen','isekai','seinen','shojo','sport','mecha','waifu','husbando'];
+   const packResponse=boosterResponses.find(b=>b.sourceURL.endsWith('/packs'));
+   for(const packId of wanted){
+    const pack=packResponse?.data?.find(p=>p.id===packId);if(!pack)continue;
+    const escaped=pack.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const candidates=page.locator('button').filter({hasText:new RegExp(escaped+(packId==='shonen'?'(?! Mix)':''))});
+    if(await candidates.count()){try{await candidates.first().click({timeout:4000});await page.waitForTimeout(800)}catch{}}
+    const view=page.locator('button,a').filter({hasText:/Voir.*(persos|personnages)/i}).first();
+    const evidence={packId,expected:pack.rates?.poolSize,viewButtons:await view.count(),buttons:(await page.locator('button').allTextContents()).map(t=>t.trim()).filter(Boolean).slice(0,80)};
+    if(await view.count()&&await view.isEnabled()){
+     try{await view.click({timeout:5000});await page.waitForTimeout(2000);
+      const dialog=page.locator('dialog,[role="dialog"]');
+      evidence.dialogImages=await dialog.locator('img').evaluateAll(imgs=>imgs.map(i=>i.getAttribute('src')));
+      evidence.dialogText=(await dialog.allTextContents()).join(' ').slice(0,5000);
+      await page.keyboard.press('Escape');
+      const close=page.getByRole('button',{name:/fermer|close/i}).last();if(await close.count()&&await close.isVisible())await close.click({timeout:3000});
+     }catch(error){evidence.error=error.message.slice(0,300)}
+    }
+    viewerEvidence.push(evidence);
+   }
   }
  }catch(error){reports.push({navigationError:error.message});blocked=true}
  await Promise.allSettled(tasks);
  await fs.mkdir('data/public-wiki',{recursive:true});
- await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,configuration,boosterResponses,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
+ await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,configuration,boosterResponses,viewerEvidence,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
  for(let i=0;i<catalogues.length;i++)await fs.writeFile('data/public-wiki/catalogue-'+i+'.json',JSON.stringify(catalogues[i],null,2));
  await browser.close();console.log(JSON.stringify({status,title,blocked,catalogueCounts:catalogues.map(c=>c.records.length)}));
 })().catch(e=>{console.error(e);process.exit(1)});
