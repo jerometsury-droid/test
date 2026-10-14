@@ -37,7 +37,7 @@ function candidateArrays(value,result=[],depth=0){
    await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);try{await page.waitForSelector('button',{timeout:12000})}catch{}
    pageEvidence.homeTitle=await page.title();pageEvidence.homeText=(await page.locator('body').innerText()).slice(0,12000);
    if(/just a moment|verify you are human|vérifiez que vous êtes humain/i.test(pageEvidence.homeTitle+' '+pageEvidence.homeText)){blocked=true;throw Error('Human verification on homepage: inspection stopped')}
-   const closeWelcome=page.getByRole('button',{name:'×',exact:true}).last();if(await closeWelcome.count()&&await closeWelcome.isVisible()){try{await closeWelcome.click({timeout:2000})}catch{}}
+   const closeWelcome=page.getByRole('button',{name:'×',exact:true}).last();if(await closeWelcome.count()&&await closeWelcome.isVisible()){try{await closeWelcome.click({timeout:2000});await page.waitForTimeout(1000);await page.waitForSelector('button',{timeout:15000})}catch{}}
    const wanted=['all','shonen','isekai','seinen','shojo','sport','mecha','waifu','husbando'];
    const packResponse=boosterResponses.find(b=>b.sourceURL.endsWith('/packs'));
    for(const packId of wanted){
