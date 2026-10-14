@@ -1,0 +1,299 @@
+[
+  {
+    "id": "1",
+    "name": "Satoru Gojou",
+    "work": "JUJUTSU KAISEN",
+    "rarity": 5,
+    "rank": 1,
+    "pow": 99,
+    "aura": 86
+  },
+  {
+    "id": "2",
+    "name": "Levi",
+    "work": "Attack on Titan",
+    "rarity": 5,
+    "rank": 2,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "3",
+    "name": "Luffy Monkey",
+    "work": "ONE PIECE",
+    "rarity": 5,
+    "rank": 3,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "4",
+    "name": "Killua Zoldyck",
+    "work": "Hunter x Hunter",
+    "rarity": 5,
+    "rank": 4,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "5",
+    "name": "Eren Yeager",
+    "work": "Attack on Titan",
+    "rarity": 5,
+    "rank": 5,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "6",
+    "name": "Zoro Roronoa",
+    "work": "ONE PIECE",
+    "rarity": 5,
+    "rank": 6,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "9",
+    "name": "L Lawliet",
+    "work": "Death Note",
+    "rarity": 5,
+    "rank": 9,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "10",
+    "name": "Ken Kaneki",
+    "work": "Tokyo Ghoul",
+    "rarity": 5,
+    "rank": 10,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "12",
+    "name": "Arataka Reigen",
+    "work": "Mob Psycho 100",
+    "rarity": 5,
+    "rank": 12,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "13",
+    "name": "Guts",
+    "work": "Berserk",
+    "rarity": 5,
+    "rank": 13,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "16",
+    "name": "Kurisu Makise",
+    "work": "Steins;Gate",
+    "rarity": 5,
+    "rank": 16,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "18",
+    "name": "Makima",
+    "work": "Chainsaw Man",
+    "rarity": 5,
+    "rank": 18,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "19",
+    "name": "Itachi Uchiha",
+    "work": "Naruto",
+    "rarity": 5,
+    "rank": 19,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "20",
+    "name": "Rintarou Okabe",
+    "work": "Steins;Gate",
+    "rarity": 5,
+    "rank": 20,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "22",
+    "name": "Yuuji Itadori",
+    "work": "JUJUTSU KAISEN",
+    "rarity": 5,
+    "rank": 22,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "23",
+    "name": "Denji",
+    "work": "Chainsaw Man",
+    "rarity": 5,
+    "rank": 23,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "24",
+    "name": "Kurapika",
+    "work": "Hunter x Hunter",
+    "rarity": 5,
+    "rank": 24,
+    "pow": 99,
+    "aura": 85
+  },
+  {
+    "id": "204",
+    "name": "Akame",
+    "work": "Akame ga Kill!",
+    "rarity": 4,
+    "rank": 204,
+    "pow": 97,
+    "aura": 72
+  },
+  {
+    "id": "675",
+    "name": "Illumi Zoldyck",
+    "work": "Hunter x Hunter",
+    "rarity": 3,
+    "rank": 675,
+    "pow": 93,
+    "aura": 63
+  },
+  {
+    "id": "1685",
+    "name": "Yukio Tanaka",
+    "work": "BECK",
+    "rarity": 2,
+    "rank": 1685,
+    "pow": 84,
+    "aura": 55
+  },
+  {
+    "id": "2566",
+    "name": "Seri Kikyou",
+    "work": "Call of the Night",
+    "rarity": 2,
+    "rank": 2566,
+    "pow": 77,
+    "aura": 51
+  },
+  {
+    "id": "2154",
+    "name": "Saya Takagi",
+    "work": "High School of the Dead",
+    "rarity": 2,
+    "rank": 2154,
+    "pow": 80,
+    "aura": 53
+  },
+  {
+    "id": "3369",
+    "name": "Hoshino Takanashi",
+    "work": "Blue Archive The Animation",
+    "rarity": 1,
+    "rank": 3369,
+    "pow": 70,
+    "aura": 48
+  },
+  {
+    "id": "4131",
+    "name": "Haato Akai",
+    "work": "holo no graffiti",
+    "rarity": 1,
+    "rank": 4131,
+    "pow": 63,
+    "aura": 46
+  },
+  {
+    "id": "5053",
+    "name": "ACDC",
+    "work": "JoJo’s Bizarre Adventure",
+    "rarity": 0,
+    "rank": 5053,
+    "pow": 55,
+    "aura": 40
+  },
+  {
+    "id": "6293",
+    "name": "Raine",
+    "work": "That Time I Got Reincarnated as a Slime",
+    "rarity": 0,
+    "rank": 6293,
+    "pow": 44,
+    "aura": 31
+  },
+  {
+    "id": "6085",
+    "name": "Loly Aivirrne",
+    "work": "Bleach",
+    "rarity": 0,
+    "rank": 6085,
+    "pow": 46,
+    "aura": 33
+  },
+  {
+    "id": "2361",
+    "name": "Afro Samurai",
+    "work": "Afro Samurai",
+    "rarity": 2,
+    "rank": 2361,
+    "pow": 77,
+    "aura": 51
+  },
+  {
+    "id": "2364",
+    "name": "Becky Blackbell",
+    "work": "SPY × FAMILY",
+    "rarity": 2,
+    "rank": 2364,
+    "pow": 77,
+    "aura": 51
+  },
+  {
+    "id": "2365",
+    "name": "Vamola",
+    "work": "DAN DA DAN",
+    "rarity": 2,
+    "rank": 2365,
+    "pow": 77,
+    "aura": 51
+  },
+  {
+    "id": "2369",
+    "name": "Zombieman",
+    "work": "One-Punch Man",
+    "rarity": 2,
+    "rank": 2369,
+    "pow": 77,
+    "aura": 51
+  },
+  {
+    "id": "6709",
+    "name": "Tenshu",
+    "work": "Fairy Tail",
+    "rarity": 0,
+    "rank": 6709,
+    "pow": 44,
+    "aura": 31
+  },
+  {
+    "id": "6710",
+    "name": "Yuika Suse",
+    "work": "Witch on the Holy Night",
+    "rarity": 0,
+    "rank": 6710,
+    "pow": 44,
+    "aura": 31
+  }
+]

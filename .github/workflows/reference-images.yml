@@ -1,0 +1,24 @@
+name: Fetch reference character portraits
+on:
+  push:
+    branches: [catalogue-images]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: catalogue-images
+      - name: Fetch exact AniList characters and local reference portraits
+        run: python3 -u tools/fetch-anilist-assets.py
+      - name: Commit verified catalogue and portraits
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/portraits data/catalogue-extra.js data/artwork-manifest.js data/catalogue-source-audit.json
+          git diff --cached --quiet || git commit -m 'Import verified character identities and non-generated portraits'
+          git push origin HEAD:catalogue-images
