@@ -22,8 +22,8 @@ function candidateArrays(value,result=[],depth=0){
  page.on('response',response=>{
   if(!(response.headers()['content-type']||'').includes('application/json'))return;
   tasks.push((async()=>{try{const value=await response.json(),url=new URL(response.url());
-   if(url.pathname==='/api/config')for(const key of ['catalogSize','freePacks','recycle','dropWeights','pity','golden','godPackChance','godPackSlots'])configuration[key]=value[key];if(/booster/.test(url.pathname))boosterResponses.push({sourceURL:url.origin+url.pathname,data:sanitize(value)});
-   const arrays=candidateArrays(value);reports.push({url:url.origin+url.pathname,status:response.status(),rootKeys:Object.keys(value||{}).slice(0,30),candidateCounts:arrays.map(a=>a.length)});
+   if(url.pathname==='/api/config')for(const key of ['catalogSize','freePacks','recycle','dropWeights','pity','golden','godPackChance','godPackSlots'])configuration[key]=value[key];if(/\/api\/(packs|rates)$/.test(url.pathname))boosterResponses.push({sourceURL:url.origin+url.pathname,data:sanitize(value)});
+   const arrays=/\/api\/(characters|packs)$/.test(url.pathname)?candidateArrays(value):[];reports.push({url:url.origin+url.pathname,status:response.status(),rootKeys:Object.keys(value||{}).slice(0,30),candidateCounts:arrays.map(a=>a.length)});
    for(const data of arrays)catalogues.push({sourceURL:url.origin+url.pathname,records:sanitize(data)});
   }catch{}})());
  });

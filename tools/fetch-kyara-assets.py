@@ -5,11 +5,22 @@ The old numeric save IDs are catalogue positions and remain unchanged.
 import concurrent.futures,datetime,hashlib,json,pathlib,re,time,unicodedata,urllib.error,urllib.parse,urllib.request
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE=json.loads((ROOT/'data/source-characters.json').read_text())
+CACHE_BY_ANILIST={}
+manifest_path=ROOT/'data/artwork-manifest.js'
+if manifest_path.exists():
+ try:
+  manifest=json.loads(manifest_path.read_text().split('globalThis.KyaraArtwork = ',1)[1].strip().removesuffix(';'))
+  CACHE_BY_ANILIST={p['anilistCharacterId']:p for p in manifest.get('portraits',{}).values() if 'anilistCharacterId' in p}
+ except (ValueError,KeyError,IndexError):pass
 KEYS={'C':0,'U':1,'R':2,'E':3,'L':4,'M':5}
 
 def fetch_image(row):
  id_=row['id'];url=row['image'];parsed=urllib.parse.urlsplit(url)
  if parsed.scheme!='https' or parsed.hostname!='s4.anilist.co' or parsed.username or parsed.password or parsed.port not in (None,443):return None,'Untrusted source URL'
+ cached=CACHE_BY_ANILIST.get(id_)
+ if cached and cached.get('sourceURL')==url:
+  file=ROOT/cached['path']
+  if file.exists() and hashlib.sha256(file.read_bytes()).hexdigest()==cached['sha256']:return cached,None
  for attempt in range(4):
   try:
    with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'KyaraSolo-local-reference/0.4'}),timeout=25) as r:body=r.read(2*1024*1024+1)
