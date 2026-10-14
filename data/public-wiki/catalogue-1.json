@@ -1,0 +1,501 @@
+{
+  "sourceURL": "https://kyara.games/api/feed",
+  "records": [
+    {
+      "userId": "e73cde28-bb5b-4bb9-baf2-46efb90064c1",
+      "pseudo": "Hnsakala",
+      "avatar": "https://cdn.discordapp.com/avatars/1408378818691072072/6c459a9a7a44cd46a11fcd50fd772aa5.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 89898,
+      "name": "Fumikage Tokoyami",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b89898-yAYDmPQPSOTV.png",
+      "series": "My Hero Academia",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:29.878Z",
+      "godPack": false
+    },
+    {
+      "userId": "0af961b0-643d-4116-aed2-8349178fe486",
+      "pseudo": "fskyra",
+      "avatar": "https://cdn.discordapp.com/avatars/1065694650532364298/7d0348b7e053988aacf1f16fb31ed422.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 206604,
+      "name": "Sara",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b206604-kMvs5P9cXJLK.png",
+      "series": "Mushoku Tensei: Jobless Reincarnation",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:29.763Z",
+      "godPack": false
+    },
+    {
+      "userId": "44e719fb-99ca-4c49-baaf-1cc4919023f9",
+      "pseudo": "Zelyas",
+      "avatar": "https://cdn.discordapp.com/avatars/289433579694325761/affa580dad622ff2cc8d7d2c1da775d3.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 1662,
+      "name": "Gaara",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b1662-4E5J0LX9jZKZ.png",
+      "series": "Naruto",
+      "rarity": "M",
+      "at": "2026-10-14T12:02:29.136Z",
+      "godPack": false
+    },
+    {
+      "userId": "892b7f87-c3b6-43c8-b811-b73e9a73e1aa",
+      "pseudo": "le_yoman",
+      "avatar": "https://cdn.discordapp.com/avatars/1553781955047329806/f23c944be087807be41131ecd3f174b4.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 87887,
+      "name": "Jibril",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b87887-3QKmvQM5LTwY.png",
+      "series": "No Game, No Life",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:28.973Z",
+      "godPack": false
+    },
+    {
+      "userId": "1e1649a3-a996-4716-a720-b90fa33ca665",
+      "pseudo": "C2A",
+      "avatar": "https://cdn.discordapp.com/avatars/255394242996862976/006774510c6c0001e2ce922a89b3e6d6.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 120970,
+      "name": "Tohru",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b120970-knjWLdlQIs1y.jpg",
+      "series": "Miss Kobayashi's Dragon Maid",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:28.453Z",
+      "godPack": false
+    },
+    {
+      "userId": "1b05f11e-b821-4fab-b89d-608e1dfd294e",
+      "pseudo": "elixi_fire",
+      "avatar": "https://cdn.discordapp.com/avatars/472658660720377874/9415c5e96c48f1c33a533f635b7355a6.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 127118,
+      "name": "Sakura Yamauchi",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b127118-XEvgt4yHSkQv.jpg",
+      "series": "I Want to Eat Your Pancreas",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:28.225Z",
+      "godPack": false
+    },
+    {
+      "userId": "99f20c33-c63a-437e-8b38-454c2015b8ef",
+      "pseudo": "michael95770",
+      "avatar": "https://cdn.discordapp.com/avatars/111623744711061504/5fbf7663f0f12102c5821fac15bd5f96.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 8945,
+      "name": "Noriaki Kakyouin",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/8945-gyPfrVpCb5CF.jpg",
+      "series": "JoJo's Bizarre Adventure",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:27.974Z",
+      "godPack": false
+    },
+    {
+      "userId": "a28c383c-b5d4-4df9-a628-a18d771b0b1d",
+      "pseudo": "coco80410",
+      "avatar": "https://cdn.discordapp.com/avatars/690150491165949993/de9161e404909099b2652cbb6d59362e.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 1358,
+      "name": "Sesshoumaru",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b1358-oR7bIGfc5pnX.png",
+      "series": "InuYasha",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:27.823Z",
+      "godPack": false
+    },
+    {
+      "userId": "a28c383c-b5d4-4df9-a628-a18d771b0b1d",
+      "pseudo": "coco80410",
+      "avatar": "https://cdn.discordapp.com/avatars/690150491165949993/de9161e404909099b2652cbb6d59362e.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 90225,
+      "name": "Victor Nikiforov",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b90225-5NweNvd4YiDr.png",
+      "series": "Yuri!!! on ICE",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:27.776Z",
+      "godPack": false
+    },
+    {
+      "userId": "b157f2fb-f9fc-4fc0-bd6b-e28e674dc775",
+      "pseudo": "160lohann",
+      "avatar": "https://cdn.discordapp.com/avatars/467011348971388960/7690888b5385595e7b71b0259a512d62.webp?size=128",
+      "frame": "gold",
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "fondateur",
+          "label": "Ambassadeur",
+          "description": "A fait venir 5 joueurs pendant le lancement",
+          "kanji": "招",
+          "frame": "gold"
+        }
+      ],
+      "characterId": 55147,
+      "name": "Shino Asada",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b55147-1fCU8lONEuZQ.png",
+      "series": "Sword Art Online",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:26.345Z",
+      "godPack": false
+    },
+    {
+      "userId": "ed6dd3c6-59fa-4bda-9fe5-1b53392cf28f",
+      "pseudo": "Cogett",
+      "avatar": "https://cdn.discordapp.com/avatars/552603236167712798/8c0149336635c0908e7a64f65a768612.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 55147,
+      "name": "Shino Asada",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b55147-1fCU8lONEuZQ.png",
+      "series": "Sword Art Online",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:25.148Z",
+      "godPack": false
+    },
+    {
+      "userId": "c1baffff-3595-433f-a000-d53e40e535b2",
+      "pseudo": "Nay-3",
+      "avatar": "https://cdn.discordapp.com/avatars/141880717838647296/f1be8d9bdc11c905d6ae056c01a34e64.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 126372,
+      "name": "Nino Nakano",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b126372-DtorHRgQaYUJ.png",
+      "series": "The Quintessential Quintuplets",
+      "rarity": "M",
+      "at": "2026-10-14T12:02:24.901Z",
+      "godPack": false
+    },
+    {
+      "userId": "44e68e82-1ee9-4993-86d4-64dc3fe6ff87",
+      "pseudo": "TONTON_BASILE_LE_RET",
+      "avatar": "https://cdn.discordapp.com/avatars/261618279594983424/e82bfb22f3e48bb45f9297e529a30044.webp?size=128",
+      "frame": "gold",
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "fondateur",
+          "label": "Ambassadeur",
+          "description": "A fait venir 5 joueurs pendant le lancement",
+          "kanji": "招",
+          "frame": "gold"
+        }
+      ],
+      "characterId": 126371,
+      "name": "Ichika Nakano",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b126371-0KQpl80s8kXQ.png",
+      "series": "The Quintessential Quintuplets",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:24.735Z",
+      "godPack": false
+    },
+    {
+      "userId": "8f6702f5-ca30-4c54-954c-dfb698316e30",
+      "pseudo": "beaniie_",
+      "avatar": "https://cdn.discordapp.com/avatars/1393306317233455274/36d53e5389333cba317ec4261848e838.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 914,
+      "name": "Piccolo",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b914-KuS8AWjqBrqa.jpg",
+      "series": "Dragon Ball",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:23.913Z",
+      "godPack": false
+    },
+    {
+      "userId": "24e1632f-7476-4abd-80f1-98b66e8a116a",
+      "pseudo": "roitaha",
+      "avatar": "https://cdn.discordapp.com/avatars/480773830055297025/7b389b900cd3a623050d6ef88b1bfc4b.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 88576,
+      "name": "Ram",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b88576-NWkotUiJ3mK3.png",
+      "series": "Re:ZERO -Starting Life in Another World",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:23.766Z",
+      "godPack": false
+    },
+    {
+      "userId": "24e1632f-7476-4abd-80f1-98b66e8a116a",
+      "pseudo": "roitaha",
+      "avatar": "https://cdn.discordapp.com/avatars/480773830055297025/7b389b900cd3a623050d6ef88b1bfc4b.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 121052,
+      "name": "Tanya Degurechaff",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b121052-bQZT3nIvaryX.png",
+      "series": "Saga of Tanya the Evil",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:23.766Z",
+      "godPack": false
+    },
+    {
+      "userId": "7a91298e-5b26-48de-b64d-a0f02479c71d",
+      "pseudo": "VANELSKY",
+      "avatar": "https://cdn.discordapp.com/avatars/1507671194894077992/38fefb42883d6f63b261acb1d99be6e2.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 137079,
+      "name": "Power",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b137079-6yLEUYR3bmpr.png",
+      "series": "Chainsaw Man",
+      "rarity": "M",
+      "at": "2026-10-14T12:02:23.445Z",
+      "godPack": false
+    },
+    {
+      "userId": "7a91298e-5b26-48de-b64d-a0f02479c71d",
+      "pseudo": "VANELSKY",
+      "avatar": "https://cdn.discordapp.com/avatars/1507671194894077992/38fefb42883d6f63b261acb1d99be6e2.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        }
+      ],
+      "characterId": 284163,
+      "name": "Rebecca",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b284163-tt8smoAXl24x.jpg",
+      "series": "Cyberpunk: Edgerunners",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:23.422Z",
+      "godPack": false
+    },
+    {
+      "userId": "87dfb97f-bd09-46e3-a1a8-0874d139e348",
+      "pseudo": "Lawtank",
+      "avatar": "https://cdn.discordapp.com/avatars/390622662205898753/b98628691408da66434c23b85348c705.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 123181,
+      "name": "Chisa Kotegawa",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b123181-t0pV6LtaDUf6.png",
+      "series": "Grand Blue Dreaming",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:22.210Z",
+      "godPack": false
+    },
+    {
+      "userId": "b9d55717-bac3-4975-bb2c-3cc794ad284f",
+      "pseudo": "Kaos_Valor",
+      "avatar": "https://cdn.discordapp.com/avatars/588055052116033547/ef3beb83ba59f1004f17997b143d860d.webp?size=128",
+      "frame": null,
+      "badges": [
+        {
+          "id": "pionnier",
+          "label": "Pionnier",
+          "description": "Était là pendant le lancement de Kyara",
+          "kanji": "初",
+          "frame": false
+        },
+        {
+          "id": "verifie",
+          "label": "Compte vérifié",
+          "description": "Compte Discord protégé par la double authentification",
+          "kanji": "証",
+          "frame": false
+        }
+      ],
+      "characterId": 145342,
+      "name": "Takemichi Hanagaki",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b145342-GSUutL83jGgI.png",
+      "series": "Tokyo Revengers",
+      "rarity": "L",
+      "at": "2026-10-14T12:02:22.015Z",
+      "godPack": false
+    }
+  ]
+}

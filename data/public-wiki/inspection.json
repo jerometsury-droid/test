@@ -5,7 +5,85 @@
   "blocked": false,
   "inspectedAnonymously": true,
   "captchaSolved": false,
+  "configuration": {
+    "catalogSize": 6736,
+    "freePacks": {
+      "max": 10,
+      "regenHours": 0.1667,
+      "boosts": [
+        {
+          "id": "boost-muuirq3c",
+          "label": "Week-end boosté",
+          "start": "2026-10-04T22:00:00.000Z",
+          "end": "2026-10-07T22:00:00.000Z",
+          "max": 15
+        },
+        {
+          "id": "boost-muynvuw7",
+          "label": "Merci à vous pour le soutien !",
+          "start": "2026-10-07T22:00:00.000Z",
+          "end": "2026-10-09T22:00:00.000Z",
+          "max": 15
+        },
+        {
+          "id": "boost-maj-1010",
+          "label": "Merci pour votre soutien !",
+          "start": "2026-10-11T23:40:00.000Z",
+          "end": "2026-10-14T22:00:00.000Z",
+          "max": 15
+        }
+      ]
+    },
+    "recycle": {
+      "C": 1,
+      "U": 1,
+      "R": 3,
+      "E": 10,
+      "L": 40,
+      "M": 150
+    },
+    "dropWeights": {
+      "C": 62,
+      "U": 25,
+      "R": 11.4,
+      "E": 1.4,
+      "L": 0.15,
+      "M": 0.025
+    },
+    "pity": {
+      "threshold": 250,
+      "rarity": "M"
+    },
+    "golden": {
+      "every": 10,
+      "slots": [
+        "C",
+        "C",
+        "U",
+        "R",
+        "E"
+      ]
+    },
+    "godPackChance": 0.0005,
+    "godPackSlots": [
+      "E",
+      "E",
+      "E",
+      "E",
+      "M"
+    ]
+  },
+  "boosterResponses": [],
   "responses": [
+    {
+      "url": "https://kyara.games/api/auth/providers",
+      "status": 200,
+      "rootKeys": [
+        "discord",
+        "turnstile"
+      ],
+      "candidateCounts": []
+    },
     {
       "url": "https://kyara.games/api/config",
       "status": 200,
@@ -22,15 +100,6 @@
         "guestBoosterLimit",
         "resets",
         "referral"
-      ],
-      "candidateCounts": []
-    },
-    {
-      "url": "https://kyara.games/api/auth/providers",
-      "status": 200,
-      "rootKeys": [
-        "discord",
-        "turnstile"
       ],
       "candidateCounts": []
     },
@@ -72,12 +141,190 @@
       "candidateCounts": [
         6736
       ]
+    },
+    {
+      "url": "https://kyara.games/api/leaderboard",
+      "status": 200,
+      "rootKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/feedback/reviews",
+      "status": 200,
+      "rootKeys": [
+        "average",
+        "count",
+        "items"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/market/listings",
+      "status": 200,
+      "rootKeys": [
+        "items",
+        "total"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/feed",
+      "status": 200,
+      "rootKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19"
+      ],
+      "candidateCounts": [
+        20
+      ]
+    },
+    {
+      "url": "https://kyara.games/api/rates",
+      "status": 200,
+      "rootKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/auth/providers",
+      "status": 200,
+      "rootKeys": [
+        "discord",
+        "turnstile"
+      ],
+      "candidateCounts": []
+    },
+    {
+      "url": "https://kyara.games/api/packs",
+      "status": 200,
+      "rootKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "candidateCounts": [
+        8
+      ]
+    },
+    {
+      "url": "https://kyara.games/api/config",
+      "status": 200,
+      "rootKeys": [
+        "catalogSize",
+        "freePacks",
+        "recycle",
+        "dropWeights",
+        "pity",
+        "golden",
+        "godPackChance",
+        "godPackSlots",
+        "membershipOpen",
+        "guestBoosterLimit",
+        "resets",
+        "referral"
+      ],
+      "candidateCounts": []
     }
   ],
   "catalogues": [
     {
       "sourceURL": "https://kyara.games/api/characters",
       "count": 6736,
+      "keys": [
+        "id",
+        "name",
+        "native",
+        "image",
+        "favourites",
+        "rank",
+        "rarity",
+        "num",
+        "series",
+        "pow",
+        "aura"
+      ]
+    },
+    {
+      "sourceURL": "https://kyara.games/api/feed",
+      "count": 20,
+      "keys": [
+        "userId",
+        "pseudo",
+        "avatar",
+        "frame",
+        "badges",
+        "characterId",
+        "name",
+        "image",
+        "series",
+        "rarity",
+        "at",
+        "godPack"
+      ]
+    },
+    {
+      "sourceURL": "https://kyara.games/api/packs",
+      "count": 8,
       "keys": [
         "id",
         "name",

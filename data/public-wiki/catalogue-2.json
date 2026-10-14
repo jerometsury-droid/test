@@ -1,0 +1,109 @@
+{
+  "sourceURL": "https://kyara.games/api/packs",
+  "records": [
+    {
+      "id": 127691,
+      "name": "Satoru Gojou",
+      "native": "五条悟",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b127691-9zqh1xpIubn7.png",
+      "favourites": 39257,
+      "rank": 0,
+      "rarity": "M",
+      "num": "#0001/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 99,
+      "aura": 86
+    },
+    {
+      "id": 127212,
+      "name": "Yuuji Itadori",
+      "native": "虎杖悠仁",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b127212-FVm2tD0erQ5B.png",
+      "favourites": 21171,
+      "rank": 21,
+      "rarity": "M",
+      "num": "#0022/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 99,
+      "aura": 81
+    },
+    {
+      "id": 126635,
+      "name": "Megumi Fushiguro",
+      "native": "伏黒恵",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b126635-L0y3I92JSUkN.png",
+      "favourites": 17325,
+      "rank": 34,
+      "rarity": "M",
+      "num": "#0035/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 99,
+      "aura": 79
+    },
+    {
+      "id": 133704,
+      "name": "Kento Nanami",
+      "native": "七海建人",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b133704-8wLTGjc234q2.png",
+      "favourites": 13673,
+      "rank": 78,
+      "rarity": "M",
+      "num": "#0079/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 98,
+      "aura": 77
+    },
+    {
+      "id": 133700,
+      "name": "Nobara Kugisaki",
+      "native": "釘崎野薔薇",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b133700-f6sOO3TcgLV6.png",
+      "favourites": 13649,
+      "rank": 79,
+      "rarity": "M",
+      "num": "#0080/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 98,
+      "aura": 77
+    },
+    {
+      "id": 134167,
+      "name": "Maki Zenin",
+      "native": "禪院真希",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b134167-5TCytk45YByD.png",
+      "favourites": 13007,
+      "rank": 82,
+      "rarity": "M",
+      "num": "#0083/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 98,
+      "aura": 77
+    },
+    {
+      "id": 133701,
+      "name": "Sukuna",
+      "native": "宿儺",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b133701-rCQuDpHr3UZL.png",
+      "favourites": 11907,
+      "rank": 95,
+      "rarity": "M",
+      "num": "#0096/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 98,
+      "aura": 76
+    },
+    {
+      "id": 129571,
+      "name": "Yuuta Okkotsu",
+      "native": "乙骨憂太",
+      "image": "https://s4.anilist.co/file/anilistcdn/character/large/b129571-GHJk7gviHOOw.jpg",
+      "favourites": 11651,
+      "rank": 97,
+      "rarity": "M",
+      "num": "#0098/6736",
+      "series": "JUJUTSU KAISEN",
+      "pow": 98,
+      "aura": 76
+    }
+  ]
+}
