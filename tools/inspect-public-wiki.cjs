@@ -18,7 +18,7 @@ function candidateArrays(value,result=[],depth=0){
 }
 (async()=>{
  const browser=await chromium.launch({channel:'chrome',headless:true});
- const page=await browser.newPage({viewport:{width:1366,height:900},locale:'fr-FR'}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[],viewerEvidence=[];let activePackId=null;
+ const page=await browser.newPage({viewport:{width:1366,height:900},locale:'fr-FR'}),tasks=[],reports=[],catalogues=[],configuration={},boosterResponses=[],viewerEvidence=[],pageEvidence={};let activePackId=null;
  page.on('response',response=>{
   if(!(response.headers()['content-type']||'').includes('application/json'))return;
   tasks.push((async()=>{try{const value=await response.json(),url=new URL(response.url());
@@ -30,11 +30,13 @@ function candidateArrays(value,result=[],depth=0){
  let status,blocked=false,title='';
  try{
   const response=await page.goto('https://kyara.games/wiki',{waitUntil:'domcontentloaded',timeout:45000});status=response?.status();
-  await page.waitForTimeout(6000);title=await page.title();
+  await page.waitForTimeout(6000);title=await page.title();pageEvidence.wikiFonts=await page.evaluate(()=>({body:getComputedStyle(document.body).fontFamily,title:document.querySelector('h1')?getComputedStyle(document.querySelector('h1')).fontFamily:null}));
   const text=await page.locator('body').innerText();
   blocked=/just a moment|attention required|verify you are human|vérifiez que vous êtes humain|checking your browser/i.test(title+' '+text)||status===403;
   if(!blocked){
-   await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);
+   await page.goto('https://kyara.games/',{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(5000);try{await page.waitForSelector('button',{timeout:12000})}catch{}
+   pageEvidence.homeTitle=await page.title();pageEvidence.homeText=(await page.locator('body').innerText()).slice(0,12000);
+   if(/just a moment|verify you are human|vérifiez que vous êtes humain/i.test(pageEvidence.homeTitle+' '+pageEvidence.homeText)){blocked=true;throw Error('Human verification on homepage: inspection stopped')}
    const closeWelcome=page.getByRole('button',{name:'×',exact:true}).last();if(await closeWelcome.count()&&await closeWelcome.isVisible()){try{await closeWelcome.click({timeout:2000})}catch{}}
    const wanted=['all','shonen','isekai','seinen','shojo','sport','mecha','waifu','husbando'];
    const packResponse=boosterResponses.find(b=>b.sourceURL.endsWith('/packs'));
@@ -43,7 +45,7 @@ function candidateArrays(value,result=[],depth=0){
     const escaped=pack.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
     const candidates=page.locator('button').filter({hasText:new RegExp(escaped+(packId==='shonen'?'(?! Mix)':''))});
     if(await candidates.count()){try{await candidates.first().click({timeout:4000});await page.waitForTimeout(800)}catch{}}
-    const view=page.locator('button,a').filter({hasText:/Voir.*(persos|personnages)/i}).first();
+    const view=page.locator('button,a').filter({hasText:/Voir.*(persos|personnages)|See.*characters/i}).first();
     const evidence={packId,expected:pack.rates?.poolSize,viewButtons:await view.count(),buttons:(await page.locator('button').allTextContents()).map(t=>t.trim()).filter(Boolean).slice(0,80)};
     if(await view.count()&&await view.isEnabled()){
      try{await view.click({timeout:5000});await page.waitForTimeout(2000);
@@ -60,7 +62,7 @@ function candidateArrays(value,result=[],depth=0){
  }catch(error){reports.push({navigationError:error.message});blocked=true}
  await Promise.allSettled(tasks);
  await fs.mkdir('data/public-wiki',{recursive:true});
- await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,configuration,boosterResponses,viewerEvidence,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
+ await fs.writeFile('data/public-wiki/inspection.json',JSON.stringify({source:'https://kyara.games/wiki',title,status,blocked,inspectedAnonymously:true,captchaSolved:false,configuration,boosterResponses,viewerEvidence,pageEvidence,responses:reports,catalogues:catalogues.map(c=>({sourceURL:c.sourceURL,count:c.records.length,keys:Object.keys(c.records[0]||{})}))},null,2));
  for(let i=0;i<catalogues.length;i++)await fs.writeFile('data/public-wiki/catalogue-'+i+'.json',JSON.stringify(catalogues[i],null,2));
  await browser.close();console.log(JSON.stringify({status,title,blocked,catalogueCounts:catalogues.map(c=>c.records.length)}));
 })().catch(e=>{console.error(e);process.exit(1)});
