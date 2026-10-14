@@ -1,10 +1,12 @@
-# Kyara Solo 0.5.0
+# Kyara Solo 0.5.1
 
 Jeu personnel hors ligne, inspiré de Kyara. Projet indépendant, sans affiliation officielle.
 
 ## Windows
 
-Téléchargez l’artefact `KyaraSolo-Windows-v0.5.0` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
+Téléchargez l’artefact `KyaraSolo-Windows-v0.5.1` dans GitHub Actions, extrayez **tout** le ZIP, puis lancez `KyaraSolo.exe`. Le dossier doit rester complet. L’application conserve ses sauvegardes dans son profil Windows. Exportez/importez votre JSON dans Paramètres pour transférer une partie du navigateur.
+
+Les résultats de chaque ouverture sont triés du Mythique au Commun, dans une grille compacte à sept colonnes sur grand écran. Les badges Nouveau restent associés aux bons tirages ; le résumé indique aussi les doublons et leur valeur de recyclage.
 
 ## Nouveautés inspirées de la vidéo du 14 octobre
 

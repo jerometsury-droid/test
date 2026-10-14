@@ -1,6 +1,6 @@
 {
   "name": "kyara-solo",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Kyara Solo — prototype local hors ligne",
   "private": true,
   "main": "desktop/main.cjs",

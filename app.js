@@ -68,10 +68,10 @@ function opening(){
  if(phase==='opening')return `<div class="scene" style="--scene-accent:${theme.accent}">${backdrop}<div class="light"></div>${packMarkup('tearing')}<h2 role="status">Ouverture${openQuantity>1?' de '+openQuantity+' boosters':' du booster'}…</h2></div>`;
  if(phase==='summary'){
   const batch=results.length>5;
-  const best=results.reduce((best,c,i)=>c.rarity>results[best].rarity?i:best,0);
-  const displayed=results.map((c,i)=>({c,i}));
-  if(!batch){const winner=displayed.splice(best,1)[0];displayed.splice(2,0,winner)}
-  return `<div class="scene summary-scene ${batch?'batch-summary':''}" style="--scene-accent:${theme.accent}">${backdrop}<h1>${title}</h1><p class="summary-new">${openingFlags.filter(Boolean).length} nouvelles cartes · ${results.length} cartes obtenues</p><div class="summary ${batch?'summary-grid':''}">${displayed.map(({c,i})=>`<div class="summary-slot ${!batch&&i===best?'best':''}" data-result-index="${i}"><span class="result-tag">${openingFlags[i]?'Nouveau':'Doublon'}</span>${card(c,true)}</div>`).join('')}</div><p>Les ${results.length} cartes ont été ajoutées à ta collection.</p>${quantityPicker()}<div class="actions"><button class="primary" id="again">Ouvrir un autre${openQuantity>1?' lot':''}</button><button id="back">Changer de booster</button><button id="collection">Voir la collection</button></div></div>`;
+  const displayed=results.map((c,i)=>({c,i})).sort((a,b)=>b.c.rarity-a.c.rarity||a.i-b.i);
+  const fresh=openingFlags.filter(Boolean).length,duplicates=results.length-fresh;
+  const recycling=results.reduce((value,c,i)=>value+(openingFlags[i]?0:REC[c.rarity]),0);
+  return `<div class="scene summary-scene batch-summary" style="--scene-accent:${theme.accent}">${backdrop}<h1>${title}</h1><p class="summary-new">${fresh} nouvelles cartes, ${duplicates} doublons${recycling?` (+${money(recycling)} chakra si recyclés)`:``} · ${results.length} cartes obtenues</p><div class="summary summary-grid ${batch?'':'single-summary'}">${displayed.map(({c,i})=>`<div class="summary-slot " data-result-index="${i}">${openingFlags[i]?'<span class="result-tag">Nouveau</span>':''}${card(c,true)}</div>`).join('')}</div><p>Les ${results.length} cartes ont été ajoutées à ta collection.</p>${quantityPicker()}<div class="actions"><button class="primary" id="again">Ouvrir un autre${openQuantity>1?' lot':''}</button><button id="back">Changer de booster</button><button id="collection">Voir la collection</button></div></div>`;
 
  }
  const c=results[revealIndex],revealed=phase==='revealed',packIndex=Math.floor(revealIndex/5),inPack=revealIndex%5;
