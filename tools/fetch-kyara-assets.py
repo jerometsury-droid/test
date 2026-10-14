@@ -2,7 +2,7 @@
 No generated illustrations, guessed characters, private endpoints or login.
 The old numeric save IDs are catalogue positions and remain unchanged.
 """
-import concurrent.futures,datetime,hashlib,json,pathlib,re,time,urllib.error,urllib.parse,urllib.request
+import concurrent.futures,datetime,hashlib,json,pathlib,re,time,unicodedata,urllib.error,urllib.parse,urllib.request
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE=json.loads((ROOT/'data/source-characters.json').read_text())
 KEYS={'C':0,'U':1,'R':2,'E':3,'L':4,'M':5}
@@ -31,17 +31,19 @@ def run():
  assert snapshot['sourceURL']=='https://kyara.games/api/characters'
  assert len(rows)==6736 and len({r['id'] for r in rows})==6736
  assert sorted(r['rank'] for r in rows)==list(range(6736))
- by_position={str(r['rank']+1):r for r in rows}
+ aliases={}
+ def norm(value):return ''.join(c.lower() for c in unicodedata.normalize('NFKD',value) if c.isalnum() and not unicodedata.combining(c))
  for old in BASE:
-  r=by_position[old['id']]
-  if r['name']!=old['name']:raise RuntimeError(f"Save identity mismatch at {old['id']}: {old['name']} / {r['name']}")
+  matches=[r for r in rows if norm(r['name'])==norm(old['name']) and (not old['work'] or norm(r['series'])==norm(old['work']))]
+  if len(matches)!=1:raise RuntimeError(f"Ambiguous saved identity {old['id']}: {old['name']}")
+  aliases[matches[0]['id']]=old['id']
  print('Verified 6736 catalogue entries and all 33 existing save identities.',flush=True)
  portraits={};missing=[];characters=[]
  (ROOT/'assets/portraits').mkdir(parents=True,exist_ok=True)
  with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
   results=pool.map(fetch_image,rows)
   for index,(row,(portrait,error)) in enumerate(zip(rows,results),1):
-   local_id=str(row['rank']+1)
+   local_id=aliases.get(row['id'],f"kyara-{row['id']}")
    if portrait:portraits[local_id]=portrait
    else:missing.append({'id':local_id,'anilistId':row['id'],'name':row['name'],'image':row['image'],'reason':error})
    characters.append({'id':local_id,'name':row['name'],'work':row['series'],'rarity':KEYS[row['rarity']],'rank':row['rank']+1,'pow':row['pow'],'aura':row['aura'],'anilistId':row['id'],'nativeName':row['native'],'favourites':row['favourites'],'identityStatus':'public-kyara-catalogue','rarityOrigin':'public-kyara-catalogue','statsOrigin':'public-kyara-catalogue'})
