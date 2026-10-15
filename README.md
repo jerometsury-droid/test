@@ -64,3 +64,8 @@ Les droits des portraits restent à leurs auteurs et ayants droit ; la présence
 Node.js 24 : `npm ci`, puis `npm test`. Servez le dossier avec `python -m http.server 8000` pour les parcours Chromium. `npm run package:windows` prépare le dossier Windows ; le workflow Windows vérifie le véritable exécutable.
 
 `src/engine.js` contient les règles sans interface ni réseau, `src/collection.js` les filtres, `data/catalogue-full.js` le catalogue, et `desktop/` l’enveloppe Electron isolée. Cette séparation permet une future couche serveur privée sans coupler le moteur aux API du site. Les rapports et observations OCR sont conservés dans `docs/` comme documents de travail.
+
+### Version Windows 0.6.1
+Le choix des boosters est présenté dès l’accueil, avec des paquets agrandis et un panneau de sélection plus proche des captures. Les retournements ont une animation et les cartes Légendaires/Mythiques un flash bref (désactivé en mode allégé). Les effets sonores originaux sont synthétisés localement : déchirement, déplacement, révélation selon la rareté et bilan. Paramètres permet de couper les sons et de régler le volume ; ces réglages sont conservés. Aucun son du site ni musique de la vidéo n’est redistribué.
+
+La distribution principale est à nouveau Windows, conformément à la demande. Le rapport de vérification accompagne le fichier. Une détection antivirus bloque la publication ; un antivirus indisponible est signalé dans le rapport, sans présenter le binaire comme analysé ou signé.
